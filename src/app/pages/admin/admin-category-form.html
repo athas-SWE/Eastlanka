@@ -1,0 +1,63 @@
+<section class="section max-w-3xl">
+  <p class="eyebrow">Admin</p>
+  <h1 class="section-title mt-2">{{ isNew() ? 'Add category' : 'Edit category' }}</h1>
+  <p class="section-copy">
+    @if (isNew()) {
+      The shop URL is created from the name. You can change the name later without breaking it.
+    } @else {
+      Slug {{ existing()?.slug }} stays the same so existing category links keep working.
+    }
+  </p>
+  <div class="section-rule"></div>
+
+  @if (!isNew() && !existing()) {
+    <div class="mt-10 rounded-3xl border border-dashed border-navy/15 bg-white px-6 py-16 text-center">
+      <h2 class="text-2xl text-navy">Category not found</h2>
+      <a routerLink="/admin/categories" class="btn-primary mt-6">All categories</a>
+    </div>
+  } @else {
+    <form class="mt-8 space-y-5" (submit)="submit($event)">
+      <label class="block">
+        <span class="mb-2 block text-xs font-semibold tracking-[0.14em] text-muted uppercase">Name</span>
+        <input type="text" class="field" [value]="draft().name" (input)="setText('name', $event)" />
+      </label>
+
+      <label class="block">
+        <span class="mb-2 block text-xs font-semibold tracking-[0.14em] text-muted uppercase">Short description</span>
+        <textarea class="field-area" rows="3" [value]="draft().blurb" (input)="setText('blurb', $event)"></textarea>
+      </label>
+
+      <div class="soft-card p-5">
+        <p class="text-xs font-semibold tracking-[0.14em] text-muted uppercase">Photo</p>
+        <div class="mt-4 flex flex-wrap items-center gap-4">
+          @if (previewUrl() || draft().image) {
+            <img
+              [src]="previewUrl() || (draft().image | cloudinaryUrl:160)"
+              alt=""
+              class="h-20 w-20 rounded-xl object-cover"
+            />
+          }
+          <label class="btn-quiet cursor-pointer">
+            <input type="file" accept="image/*" class="sr-only" (change)="onFile($event)" />
+            Choose image
+          </label>
+        </div>
+        <label class="mt-4 block">
+          <span class="mb-2 block text-xs text-muted">Or paste a Cloudinary public ID</span>
+          <input type="text" class="field" placeholder="offer-lanka/categories/gifts" [value]="draft().image" (input)="setText('image', $event)" />
+        </label>
+      </div>
+
+      @if (error()) {
+        <p class="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-800">{{ error() }}</p>
+      }
+
+      <div class="flex flex-wrap gap-3">
+        <button type="submit" class="btn-gold" [disabled]="saving()">
+          {{ saving() ? 'Saving…' : 'Save category' }}
+        </button>
+        <a routerLink="/admin/categories" class="btn-quiet">Cancel</a>
+      </div>
+    </form>
+  }
+</section>

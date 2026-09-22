@@ -9,9 +9,12 @@ export const SITE_CONFIG = {
   email: 'hello@eastlanka.lk',
   location: 'Sri Lanka',
   logoImage: 'offer-lanka/brand-logo',
+  adminPassword: 'eastlanka',
   cloudinary: {
     cloudName: 'derggujli',
     folder: 'offer-lanka',
     uploadPreset: 'offer_lanka_unsigned',
+    dataPreset: 'offer_lanka_data',
+    catalogueTag: 'eastlanka-catalogue',
   },
 } as const;

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ProductService } from '../../core/services/product.service';
 import { ProductGrid } from '../../shared/product-grid/product-grid';
 
@@ -8,5 +8,6 @@ import { ProductGrid } from '../../shared/product-grid/product-grid';
   templateUrl: './offers.html',
 })
 export class Offers {
-  readonly products = inject(ProductService).offers();
+  private readonly catalogue = inject(ProductService);
+  readonly products = computed(() => this.catalogue.offers());
 }

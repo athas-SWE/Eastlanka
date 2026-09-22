@@ -1,0 +1,23 @@
+<section class="section max-w-lg">
+  <p class="eyebrow">Admin</p>
+  <h1 class="section-title mt-2">Sign in</h1>
+  <p class="section-copy">Add products and categories, then they appear on the live catalogue.</p>
+  <div class="section-rule"></div>
+
+  <form class="soft-card mt-8 space-y-4 p-6 sm:p-8" (submit)="submit($event)">
+    <label class="block">
+      <span class="mb-2 block text-xs font-semibold tracking-[0.14em] text-muted uppercase">Password</span>
+      <input
+        type="password"
+        class="field"
+        autocomplete="current-password"
+        [value]="password()"
+        (input)="onPassword($event)"
+      />
+    </label>
+    @if (error()) {
+      <p class="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-800">{{ error() }}</p>
+    }
+    <button type="submit" class="btn-primary w-full">Continue</button>
+  </form>
+</section>

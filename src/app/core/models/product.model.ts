@@ -1,10 +1,16 @@
-export type CategorySlug = 'electronics' | 'fashion' | 'home' | 'accessories' | 'gifts';
+export type CategorySlug = string;
 
 export interface Category {
   slug: CategorySlug;
   name: string;
   blurb: string;
   image: string;
+}
+
+export interface CatalogueSnapshot {
+  updatedAt: string;
+  products: Product[];
+  categories: Category[];
 }
 
 export interface Product {

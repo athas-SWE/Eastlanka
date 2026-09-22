@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CATEGORIES } from '../../core/data/categories';
+import { ProductService } from '../../core/services/product.service';
 import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
 
 @Component({
@@ -9,5 +9,5 @@ import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
   templateUrl: './categories.html',
 })
 export class Categories {
-  readonly categories = CATEGORIES;
+  readonly categories = inject(ProductService).categories;
 }

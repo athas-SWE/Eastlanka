@@ -1,0 +1,94 @@
+<section class="section max-w-3xl">
+  <p class="eyebrow">Admin</p>
+  <h1 class="section-title mt-2">{{ isNew() ? 'Add product' : 'Edit product' }}</h1>
+  <p class="section-copy">
+    @if (isNew()) {
+      A product code is created automatically. Photo uploads go to Cloudinary.
+    } @else {
+      Code {{ existing()?.code }} stays the same so existing links keep working.
+    }
+  </p>
+  <div class="section-rule"></div>
+
+  @if (!isNew() && !existing()) {
+    <div class="mt-10 rounded-3xl border border-dashed border-navy/15 bg-white px-6 py-16 text-center">
+      <h2 class="text-2xl text-navy">Product not found</h2>
+      <a routerLink="/admin/products" class="btn-primary mt-6">All products</a>
+    </div>
+  } @else {
+    <form class="mt-8 space-y-5" (submit)="submit($event)">
+      <label class="block">
+        <span class="mb-2 block text-xs font-semibold tracking-[0.14em] text-muted uppercase">Name</span>
+        <input type="text" class="field" [value]="draft().name" (input)="setText('name', $event)" />
+      </label>
+
+      <label class="block">
+        <span class="mb-2 block text-xs font-semibold tracking-[0.14em] text-muted uppercase">Category</span>
+        <select class="field" [value]="draft().category" (change)="setText('category', $event)">
+          @for (category of categories(); track category.slug) {
+            <option [value]="category.slug">{{ category.name }}</option>
+          }
+        </select>
+      </label>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="block">
+          <span class="mb-2 block text-xs font-semibold tracking-[0.14em] text-muted uppercase">Price (Rs.)</span>
+          <input type="number" min="1" class="field" [value]="draft().price" (input)="setText('price', $event)" />
+        </label>
+        <label class="block">
+          <span class="mb-2 block text-xs font-semibold tracking-[0.14em] text-muted uppercase">Was (optional)</span>
+          <input type="number" min="1" class="field" [value]="draft().originalPrice" (input)="setText('originalPrice', $event)" />
+        </label>
+      </div>
+
+      <label class="block">
+        <span class="mb-2 block text-xs font-semibold tracking-[0.14em] text-muted uppercase">Description</span>
+        <textarea class="field-area" rows="4" [value]="draft().description" (input)="setText('description', $event)"></textarea>
+      </label>
+
+      <div class="soft-card p-5">
+        <p class="text-xs font-semibold tracking-[0.14em] text-muted uppercase">Photo</p>
+        <div class="mt-4 flex flex-wrap items-center gap-4">
+          @if (previewUrl() || draft().image) {
+            <img
+              [src]="previewUrl() || (draft().image | cloudinaryUrl:160)"
+              alt=""
+              class="h-20 w-20 rounded-xl object-cover"
+            />
+          }
+          <label class="btn-quiet cursor-pointer">
+            <input type="file" accept="image/*" class="sr-only" (change)="onFile($event)" />
+            Choose image
+          </label>
+        </div>
+        <label class="mt-4 block">
+          <span class="mb-2 block text-xs text-muted">Or paste a Cloudinary public ID</span>
+          <input type="text" class="field" placeholder="offer-lanka/products/headphones" [value]="draft().image" (input)="setText('image', $event)" />
+        </label>
+      </div>
+
+      <div class="flex flex-wrap gap-6">
+        <label class="flex items-center gap-3 text-sm text-navy">
+          <input type="checkbox" class="h-4 w-4 accent-forest" [checked]="draft().available" (change)="setFlag('available', $event)" />
+          In stock
+        </label>
+        <label class="flex items-center gap-3 text-sm text-navy">
+          <input type="checkbox" class="h-4 w-4 accent-forest" [checked]="draft().newArrival" (change)="setFlag('newArrival', $event)" />
+          New arrival
+        </label>
+      </div>
+
+      @if (error()) {
+        <p class="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-800">{{ error() }}</p>
+      }
+
+      <div class="flex flex-wrap gap-3">
+        <button type="submit" class="btn-primary" [disabled]="saving()">
+          {{ saving() ? 'Saving…' : 'Save product' }}
+        </button>
+        <a routerLink="/admin/products" class="btn-quiet">Cancel</a>
+      </div>
+    </form>
+  }
+</section>

@@ -19,7 +19,7 @@
       <span class="sr-only">Filter by category</span>
       <select class="field" [value]="category()" (change)="onCategory($event)">
         <option value="">All categories</option>
-        @for (item of categories; track item.slug) {
+        @for (item of categories(); track item.slug) {
           <option [value]="item.slug">{{ item.name }}</option>
         }
       </select>

@@ -25,7 +25,7 @@
         <li><a routerLink="/products" class="hover:text-white">All products</a></li>
         <li><a routerLink="/new-arrivals" class="hover:text-white">New arrivals</a></li>
         <li><a routerLink="/offers" class="hover:text-white">Offers</a></li>
-        @for (category of categories; track category.slug) {
+        @for (category of categories(); track category.slug) {
           <li>
             <a [routerLink]="['/categories', category.slug]" class="hover:text-white">{{ category.name }}</a>
           </li>

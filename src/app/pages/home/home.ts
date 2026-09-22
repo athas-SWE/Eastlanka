@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CATEGORIES } from '../../core/data/categories';
 import { SITE_CONFIG } from '../../core/data/site-config';
 import { ProductService } from '../../core/services/product.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
@@ -13,9 +12,12 @@ import { ProductGrid } from '../../shared/product-grid/product-grid';
   templateUrl: './home.html',
 })
 export class Home {
+  private readonly catalogue = inject(ProductService);
+
   readonly site = SITE_CONFIG;
-  readonly categories = CATEGORIES;
-  readonly arrivals = inject(ProductService).newArrivals().slice(0, 3);
+  readonly categories = this.catalogue.categories;
+  readonly arrivals = computed(() => this.catalogue.newArrivals().slice(0, 3));
+  readonly productCount = computed(() => this.catalogue.products().length);
   readonly whatsappUrl = inject(WhatsAppService).generalUrl();
 
   readonly reasons = [

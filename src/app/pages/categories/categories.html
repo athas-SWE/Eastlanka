@@ -1,10 +1,10 @@
 <section class="section">
   <p class="eyebrow">Browse</p>
   <h1 class="section-title mt-2">Categories</h1>
-  <p class="section-copy">Electronics, fashion, home, accessories and gifts — pick a category and see what is in stock.</p>
+  <p class="section-copy">Pick a category and see what is in stock right now.</p>
   <div class="section-rule"></div>
   <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    @for (category of categories; track category.slug) {
+    @for (category of categories(); track category.slug) {
       <a
         [routerLink]="['/categories', category.slug]"
         class="soft-card overflow-hidden hover:-translate-y-0.5 hover:border-gold/40"

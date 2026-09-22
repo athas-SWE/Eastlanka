@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "cloudinary:upload": "node scripts/upload-to-cloudinary.mjs"
+    "cloudinary:upload": "node scripts/upload-to-cloudinary.mjs",
+    "cloudinary:data-preset": "node scripts/ensure-data-preset.mjs"
   },
   "private": true,
   "packageManager": "npm@11.19.0",

@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SITE_CONFIG } from '../../core/data/site-config';
+import { AdminAuthService } from '../../core/services/admin-auth.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
 
@@ -12,6 +13,7 @@ import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
 export class Header {
   readonly site = SITE_CONFIG;
   readonly whatsappUrl = inject(WhatsAppService).generalUrl();
+  readonly loggedIn = inject(AdminAuthService).loggedIn;
   readonly menuOpen = signal(false);
 
   readonly links = [

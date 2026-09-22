@@ -1,0 +1,37 @@
+<section class="section">
+  <p class="eyebrow">Admin</p>
+  <h1 class="section-title mt-2">Catalogue</h1>
+  <p class="section-copy">Add a product or a category. Images go to Cloudinary. The shop pages update as soon as you save.</p>
+  <div class="section-rule"></div>
+
+  <div class="mt-8 grid gap-4 sm:grid-cols-3">
+    <article class="soft-card p-6">
+      <p class="eyebrow">Products</p>
+      <p class="mt-3 font-display text-4xl text-navy">{{ productCount() }}</p>
+    </article>
+    <article class="soft-card p-6">
+      <p class="eyebrow">Categories</p>
+      <p class="mt-3 font-display text-4xl text-navy">{{ categoryCount() }}</p>
+    </article>
+    <article class="soft-card p-6">
+      <p class="eyebrow">Offers</p>
+      <p class="mt-3 font-display text-4xl text-navy">{{ offerCount() }}</p>
+    </article>
+  </div>
+
+  <div class="mt-6 rounded-2xl border border-navy/8 bg-white px-5 py-4 text-sm text-muted">
+    Photos go to Cloudinary. Product and category details save in this browser, so the shop updates as soon as you add them.
+    @if (remoteSynced()) {
+      A Cloudinary catalogue copy was also stored.
+    }
+    @if (lastSavedAt()) {
+      <span class="mt-1 block text-xs">Last save: {{ lastSavedAt() }}</span>
+    }
+  </div>
+
+  <div class="mt-8 flex flex-wrap gap-3">
+    <a routerLink="/admin/products/new" class="btn-primary">Add product</a>
+    <a routerLink="/admin/categories/new" class="btn-gold">Add category</a>
+    <a routerLink="/admin/media" class="btn-quiet">Upload images</a>
+  </div>
+</section>

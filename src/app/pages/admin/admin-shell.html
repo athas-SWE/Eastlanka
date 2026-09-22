@@ -1,0 +1,18 @@
+<div class="border-b border-navy/8 bg-white">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
+    <nav class="flex flex-wrap items-center gap-1 text-sm font-medium">
+      @for (link of links; track link.path) {
+        <a
+          [routerLink]="link.path"
+          [routerLinkActive]="['bg-navy', 'text-white']"
+          [routerLinkActiveOptions]="{ exact: link.exact }"
+          class="rounded-full px-3 py-1.5 text-muted hover:bg-cream hover:text-navy"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+    <button type="button" class="btn-quiet !px-4 !py-2 text-xs" (click)="signOut()">Sign out</button>
+  </div>
+</div>
+<router-outlet />

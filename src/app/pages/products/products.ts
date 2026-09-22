@@ -1,5 +1,4 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { CATEGORIES } from '../../core/data/categories';
 import { ProductService } from '../../core/services/product.service';
 import { ProductGrid } from '../../shared/product-grid/product-grid';
 
@@ -11,7 +10,7 @@ import { ProductGrid } from '../../shared/product-grid/product-grid';
 export class Products {
   private readonly productService = inject(ProductService);
 
-  readonly categories = CATEGORIES;
+  readonly categories = this.productService.categories;
   readonly query = signal('');
   readonly category = signal('');
 

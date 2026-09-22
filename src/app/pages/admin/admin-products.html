@@ -1,0 +1,65 @@
+<section class="section">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="eyebrow">Admin</p>
+      <h1 class="section-title mt-2">Products</h1>
+      <p class="section-copy">Add a product, attach a photo, and it appears in the shop.</p>
+      <div class="section-rule"></div>
+    </div>
+    <a routerLink="/admin/products/new" class="btn-primary">Add product</a>
+  </div>
+
+  @if (error()) {
+    <p class="mt-6 rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-800">{{ error() }}</p>
+  }
+  @if (message()) {
+    <p class="mt-6 rounded-2xl bg-forest/10 px-4 py-3 text-sm text-forest">{{ message() }}</p>
+  }
+
+  <div class="mt-8 overflow-hidden rounded-2xl border border-navy/8 bg-white">
+    <table class="min-w-full text-left text-sm">
+      <thead class="bg-cream text-xs tracking-[0.12em] text-muted uppercase">
+        <tr>
+          <th class="px-4 py-3 font-semibold">Product</th>
+          <th class="hidden px-4 py-3 font-semibold sm:table-cell">Category</th>
+          <th class="px-4 py-3 font-semibold">Price</th>
+          <th class="px-4 py-3 font-semibold"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of products(); track product.code) {
+          <tr class="border-t border-navy/8">
+            <td class="px-4 py-3">
+              <div class="flex items-center gap-3">
+                <img [src]="product.image | cloudinaryUrl:80" [alt]="" class="h-12 w-12 rounded-xl object-cover" />
+                <div>
+                  <p class="font-medium text-navy">{{ product.name }}</p>
+                  <p class="text-xs text-muted">{{ product.code }}</p>
+                </div>
+              </div>
+            </td>
+            <td class="hidden px-4 py-3 text-muted sm:table-cell">{{ categoryName(product.category) }}</td>
+            <td class="px-4 py-3 text-navy">{{ formatLkr(product.price) }}</td>
+            <td class="px-4 py-3 text-right">
+              <div class="flex justify-end gap-2">
+                <a [routerLink]="['/admin/products', product.code]" class="btn-quiet !px-3 !py-2 text-xs">Edit</a>
+                <button
+                  type="button"
+                  class="btn-danger"
+                  [disabled]="busy() === product.code"
+                  (click)="remove(product.code, product.name)"
+                >
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="4" class="px-4 py-12 text-center text-muted">No products yet.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
