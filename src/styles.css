@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Source Serif 4", ui-serif, Georgia, serif;
+  --color-forest: #14532d;
+  --color-forest-dark: #0c2e1c;
+  --color-forest-light: #1f6b40;
+  --color-gold: #c4a35a;
+  --color-gold-dark: #9a7b32;
+  --color-cream: #f6f1e7;
+  --color-cream-dark: #ebe3d4;
+  --color-ink: #14201a;
+  --color-muted: #5c6b63;
+  --color-whatsapp: #25d366;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream font-sans text-ink antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest px-6 py-3 text-sm font-semibold tracking-wide text-cream transition duration-200 hover:bg-forest-dark;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold tracking-wide text-forest-dark transition duration-200 hover:bg-gold-dark hover:text-cream;
+  }
+
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-semibold tracking-wide text-white transition duration-200 hover:bg-[#1ebe5d];
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-cream/40 px-6 py-3 text-sm font-semibold tracking-wide text-cream transition duration-200 hover:bg-cream hover:text-forest;
+  }
+
+  .section {
+    @apply mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:px-8;
+  }
+
+  .section-title {
+    @apply text-3xl text-forest sm:text-4xl;
+  }
+
+  .section-rule {
+    @apply mt-3 h-px w-24 bg-gold;
+  }
+}
