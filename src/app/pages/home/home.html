@@ -1,42 +1,46 @@
-<section class="bg-forest-dark text-cream">
-  <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
+<section class="relative overflow-hidden bg-navy text-white">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(239,180,0,0.16),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(31,138,52,0.18),transparent_40%)]"></div>
+  <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-24">
     <div>
-      <p class="text-sm tracking-[0.2em] text-gold uppercase">{{ site.name }}</p>
-      <h1 class="mt-4 max-w-xl text-4xl leading-tight sm:text-5xl lg:text-6xl">{{ site.heroTitle }}</h1>
-      <p class="mt-4 max-w-md text-lg text-cream/75">{{ site.heroSubtitle }}</p>
-      <p class="mt-2 text-sm text-gold">{{ site.tagline }}</p>
+      <p class="eyebrow">New Products • Better Tomorrow</p>
+      <h1 class="mt-5 max-w-xl text-4xl leading-[1.1] text-white sm:text-5xl lg:text-6xl">{{ site.heroTitle }}</h1>
+      <p class="mt-5 max-w-md text-lg leading-8 text-white/72">{{ site.heroSubtitle }}</p>
       <div class="mt-8 flex flex-wrap gap-3">
         <a routerLink="/products" class="btn-gold">Shop Now</a>
         <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-outline">WhatsApp Us</a>
       </div>
-    </div>
-    <div class="relative overflow-hidden rounded-3xl border border-cream/10 bg-forest p-8">
-      <img src="assets/logo.svg" alt="" class="absolute -right-6 -bottom-8 h-48 w-48 opacity-20" />
-      <p class="font-display text-2xl">New finds, confirmed in chat</p>
-      <p class="mt-3 max-w-sm text-cream/70">
-        Browse the catalogue, open a product, and send a prepared WhatsApp message. We confirm price, stock and delivery with you.
-      </p>
-      <dl class="mt-8 grid grid-cols-2 gap-6 text-sm">
+      <dl class="mt-10 grid max-w-md grid-cols-2 gap-6 border-t border-white/10 pt-6 text-sm">
         <div>
-          <dt class="text-gold">Catalogue</dt>
-          <dd class="mt-1 text-lg text-cream">18 sample products</dd>
+          <dt class="text-white/50">Catalogue</dt>
+          <dd class="mt-1 font-display text-lg text-white">18 curated products</dd>
         </div>
         <div>
-          <dt class="text-gold">Ordering</dt>
-          <dd class="mt-1 text-lg text-cream">WhatsApp first</dd>
+          <dt class="text-white/50">Ordering</dt>
+          <dd class="mt-1 font-display text-lg text-white">WhatsApp first</dd>
         </div>
       </dl>
     </div>
+    <div class="flex justify-center lg:justify-end">
+      <div class="rounded-full bg-white p-3 shadow-[0_24px_80px_rgba(0,0,0,0.28)] ring-1 ring-white/20">
+        <img
+          [src]="site.logoImage | cloudinaryUrl:520"
+          alt="East Lanka"
+          class="h-52 w-52 rounded-full object-cover sm:h-64 sm:w-64"
+        />
+      </div>
+    </div>
   </div>
+  <div class="brand-bar"></div>
 </section>
 
 <section class="section">
   <div class="flex items-end justify-between gap-4">
     <div>
-      <h2 class="section-title">New Arrivals</h2>
+      <p class="eyebrow">Just in</p>
+      <h2 class="section-title mt-2">New Arrivals</h2>
       <div class="section-rule"></div>
     </div>
-    <a routerLink="/new-arrivals" class="text-sm font-semibold text-forest hover:text-gold-dark">See all</a>
+    <a routerLink="/new-arrivals" class="text-sm font-semibold text-forest hover:text-navy">See all</a>
   </div>
   <div class="mt-10">
     <app-product-grid [products]="arrivals" />
@@ -45,18 +49,19 @@
 
 <section class="bg-white">
   <div class="section">
-    <h2 class="section-title">Shop by Category</h2>
+    <p class="eyebrow">Browse</p>
+    <h2 class="section-title mt-2">Shop by Category</h2>
     <div class="section-rule"></div>
     <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
       @for (category of categories; track category.slug) {
         <a
           [routerLink]="['/categories', category.slug]"
-          class="overflow-hidden rounded-2xl border border-forest/10 bg-cream transition hover:-translate-y-0.5 hover:border-gold"
+          class="soft-card group overflow-hidden hover:-translate-y-0.5 hover:border-gold/50"
         >
-          <img [src]="category.image" [alt]="category.name" class="h-28 w-full object-cover" />
+          <img [src]="category.image | cloudinaryUrl:480" [alt]="category.name" class="h-32 w-full object-cover" />
           <div class="p-4">
-            <h3 class="font-display text-xl text-forest">{{ category.name }}</h3>
-            <p class="mt-1 text-sm text-muted">{{ category.blurb }}</p>
+            <h3 class="font-display text-lg text-navy">{{ category.name }}</h3>
+            <p class="mt-1 text-sm leading-6 text-muted">{{ category.blurb }}</p>
           </div>
         </a>
       }
@@ -65,25 +70,27 @@
 </section>
 
 <section class="section">
-  <h2 class="section-title">Why East Lanka?</h2>
+  <p class="eyebrow">The East Lanka way</p>
+  <h2 class="section-title mt-2">Why East Lanka?</h2>
   <div class="section-rule"></div>
-  <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+  <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
     @for (reason of reasons; track reason.title) {
-      <article class="rounded-2xl border border-forest/10 bg-white p-6">
-        <p class="text-gold">✓</p>
-        <h3 class="mt-3 font-display text-xl text-forest">{{ reason.title }}</h3>
-        <p class="mt-2 text-sm text-muted">{{ reason.text }}</p>
+      <article class="soft-card p-6">
+        <p class="eyebrow">{{ reason.label }}</p>
+        <h3 class="mt-4 font-display text-xl text-navy">{{ reason.title }}</h3>
+        <p class="mt-2 text-sm leading-6 text-muted">{{ reason.text }}</p>
       </article>
     }
   </div>
 </section>
 
-<section class="bg-forest text-cream">
+<section class="bg-navy text-white">
   <div class="section flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
     <div>
-      <h2 class="text-3xl">Need help?</h2>
-      <p class="mt-2 text-cream/75">Chat with us on WhatsApp</p>
+      <p class="eyebrow">Need help?</p>
+      <h2 class="mt-2 text-3xl text-white">Chat with us on WhatsApp</h2>
+      <p class="mt-2 text-white/65">We confirm price, stock and delivery in the same conversation.</p>
     </div>
-    <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">WhatsApp Us</a>
+    <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-whatsapp shrink-0">WhatsApp Us</a>
   </div>
 </section>

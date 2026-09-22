@@ -8,4 +8,10 @@ export const SITE_CONFIG = {
   instagramUrl: 'https://www.instagram.com/eastlanka',
   email: 'hello@eastlanka.lk',
   location: 'Sri Lanka',
+  logoImage: 'offer-lanka/brand-logo',
+  cloudinary: {
+    cloudName: 'derggujli',
+    folder: 'offer-lanka',
+    uploadPreset: 'offer_lanka_unsigned',
+  },
 } as const;

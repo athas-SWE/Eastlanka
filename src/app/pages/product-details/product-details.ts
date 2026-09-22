@@ -4,10 +4,11 @@ import { RouterLink } from '@angular/router';
 import { ProductService } from '../../core/services/product.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { discountPercent, formatLkr } from '../../core/utils/money';
+import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
 
 @Component({
   selector: 'app-product-details',
-  imports: [RouterLink],
+  imports: [RouterLink, CloudinaryUrlPipe],
   templateUrl: './product-details.html',
 })
 export class ProductDetails {

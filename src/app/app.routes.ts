@@ -4,6 +4,7 @@ import { Categories } from './pages/categories/categories';
 import { CategoryProducts } from './pages/category-products/category-products';
 import { Contact } from './pages/contact/contact';
 import { Home } from './pages/home/home';
+import { Media } from './pages/media/media';
 import { NewArrivals } from './pages/new-arrivals/new-arrivals';
 import { Offers } from './pages/offers/offers';
 import { ProductDetails } from './pages/product-details/product-details';
@@ -19,5 +20,6 @@ export const routes: Routes = [
   { path: 'offers', component: Offers, title: 'Offers | East Lanka' },
   { path: 'about', component: About, title: 'About East Lanka' },
   { path: 'contact', component: Contact, title: 'Contact | East Lanka' },
+  { path: 'admin/media', component: Media, title: 'Upload images | East Lanka' },
   { path: '**', redirectTo: '' },
 ];

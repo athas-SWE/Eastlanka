@@ -1,11 +1,11 @@
 @if (products().length) {
-  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
     @for (product of products(); track product.code) {
       <app-product-card [product]="product" />
     }
   </div>
 } @else {
-  <p class="rounded-2xl border border-dashed border-forest/20 bg-white px-6 py-16 text-center text-muted">
+  <p class="rounded-2xl border border-dashed border-navy/15 bg-white px-6 py-16 text-center text-muted">
     {{ emptyMessage() }}
   </p>
 }

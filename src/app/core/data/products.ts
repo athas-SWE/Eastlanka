@@ -8,7 +8,7 @@ export const PRODUCTS: Product[] = [
     category: 'electronics',
     price: 6500,
     originalPrice: 8000,
-    image: 'assets/products/headphones.svg',
+    image: 'offer-lanka/products/headphones',
     description:
       'Wireless Bluetooth headphones with cushioned ear cups, a clear everyday sound profile, and enough battery for long commutes or work sessions.',
     available: true,
@@ -20,7 +20,7 @@ export const PRODUCTS: Product[] = [
     name: 'Smart Fitness Watch',
     category: 'electronics',
     price: 12500,
-    image: 'assets/products/smartwatch.svg',
+    image: 'offer-lanka/products/smartwatch',
     description:
       'A light fitness watch for steps, heart-rate tracking and message alerts, with a readable display for outdoor use.',
     available: true,
@@ -32,7 +32,7 @@ export const PRODUCTS: Product[] = [
     category: 'electronics',
     price: 4500,
     originalPrice: 5500,
-    image: 'assets/products/speaker.svg',
+    image: 'offer-lanka/products/speaker',
     description:
       'Compact Bluetooth speaker with a warm, room-filling sound. Easy to carry for picnics, rooms and small gatherings.',
     available: true,
@@ -44,7 +44,7 @@ export const PRODUCTS: Product[] = [
     name: 'Fast Charge Power Bank',
     category: 'electronics',
     price: 3200,
-    image: 'assets/products/powerbank.svg',
+    image: 'offer-lanka/products/powerbank',
     description:
       'Slim 10,000 mAh power bank with fast charging for phones and earbuds. Fits in a bag without adding bulk.',
     available: true,
@@ -55,7 +55,7 @@ export const PRODUCTS: Product[] = [
     name: 'Everyday Cotton Tee',
     category: 'fashion',
     price: 1800,
-    image: 'assets/products/tshirt.svg',
+    image: 'offer-lanka/products/tshirt',
     description:
       'Soft mid-weight cotton tee with a clean crew neck. Easy to wear on its own or under a shirt.',
     available: true,
@@ -68,7 +68,7 @@ export const PRODUCTS: Product[] = [
     category: 'fashion',
     price: 4200,
     originalPrice: 5200,
-    image: 'assets/products/shirt.svg',
+    image: 'offer-lanka/products/shirt',
     description:
       'Breathable linen shirt cut for warm weather. Relaxed, slightly structured, and simple to dress up or down.',
     available: true,
@@ -79,7 +79,7 @@ export const PRODUCTS: Product[] = [
     name: 'Canvas Sneakers',
     category: 'fashion',
     price: 6900,
-    image: 'assets/products/sneakers.svg',
+    image: 'offer-lanka/products/sneakers',
     description:
       'Low-profile canvas sneakers with a cushioned insole. A daily pair for errands, travel and casual workdays.',
     available: true,
@@ -90,7 +90,7 @@ export const PRODUCTS: Product[] = [
     name: 'Market Tote Bag',
     category: 'fashion',
     price: 2500,
-    image: 'assets/products/tote.svg',
+    image: 'offer-lanka/products/tote',
     description:
       'Sturdy canvas tote with a wide opening and interior pocket. Made for markets, laptops and weekend carry.',
     available: false,
@@ -102,7 +102,7 @@ export const PRODUCTS: Product[] = [
     category: 'home',
     price: 8900,
     originalPrice: 11000,
-    image: 'assets/products/dinner-set.svg',
+    image: 'offer-lanka/products/dinner-set',
     description:
       'Four-person ceramic dinner set in a warm sand glaze. Microwave-safe plates and bowls for everyday meals.',
     available: true,
@@ -113,7 +113,7 @@ export const PRODUCTS: Product[] = [
     name: 'Brass LED Desk Lamp',
     category: 'home',
     price: 5600,
-    image: 'assets/products/lamp.svg',
+    image: 'offer-lanka/products/lamp',
     description:
       'Adjustable LED desk lamp with a brass finish and a soft, even light for reading or late work.',
     available: true,
@@ -125,7 +125,7 @@ export const PRODUCTS: Product[] = [
     name: 'Cotton Bedsheet Set',
     category: 'home',
     price: 4800,
-    image: 'assets/products/bedsheet.svg',
+    image: 'offer-lanka/products/bedsheet',
     description:
       'Breathable cotton sheet set with a smooth hand-feel. Includes fitted sheet, flat sheet and two pillowcases.',
     available: true,
@@ -136,7 +136,7 @@ export const PRODUCTS: Product[] = [
     name: 'Fold Leather Wallet',
     category: 'accessories',
     price: 2900,
-    image: 'assets/products/wallet.svg',
+    image: 'offer-lanka/products/wallet',
     description:
       'Slim bi-fold wallet in genuine leather with card slots and a note compartment. Ages with a natural patina.',
     available: true,
@@ -148,7 +148,7 @@ export const PRODUCTS: Product[] = [
     category: 'accessories',
     price: 3500,
     originalPrice: 4500,
-    image: 'assets/products/sunglasses.svg',
+    image: 'offer-lanka/products/sunglasses',
     description:
       'Polarized lenses in a classic frame. Cuts glare on bright coastal days without looking oversized.',
     available: true,
@@ -160,7 +160,7 @@ export const PRODUCTS: Product[] = [
     name: 'Protective Phone Case',
     category: 'accessories',
     price: 1200,
-    image: 'assets/products/phone-case.svg',
+    image: 'offer-lanka/products/phone-case',
     description:
       'Slim protective case with raised edges for the screen and camera. Everyday drop protection without extra bulk.',
     available: true,
@@ -172,7 +172,7 @@ export const PRODUCTS: Product[] = [
     category: 'gifts',
     price: 7500,
     originalPrice: 9500,
-    image: 'assets/products/hamper.svg',
+    image: 'offer-lanka/products/hamper',
     description:
       'A ready-to-give hamper with tea, snacks and a small keepsake. Packed for birthdays, Avurudu and office gifting.',
     available: true,
@@ -184,7 +184,7 @@ export const PRODUCTS: Product[] = [
     name: 'Scented Candle Trio',
     category: 'gifts',
     price: 2800,
-    image: 'assets/products/candles.svg',
+    image: 'offer-lanka/products/candles',
     description:
       'Three soy candles in cinnamon, citrus and rain-leaf scents. A small gift that still feels considered.',
     available: true,
@@ -195,7 +195,7 @@ export const PRODUCTS: Product[] = [
     name: 'Teak Photo Frame',
     category: 'gifts',
     price: 1600,
-    image: 'assets/products/frame.svg',
+    image: 'offer-lanka/products/frame',
     description:
       'Hand-finished teak frame for a 5x7 print. Simple enough for a desk, sturdy enough for a wall.',
     available: true,
@@ -206,7 +206,7 @@ export const PRODUCTS: Product[] = [
     name: 'Insulated Steel Flask',
     category: 'gifts',
     price: 2200,
-    image: 'assets/products/flask.svg',
+    image: 'offer-lanka/products/flask',
     description:
       'Double-wall steel flask that keeps tea or water hot or cold for hours. Leak-resistant lid for bags and commutes.',
     available: false,

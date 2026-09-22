@@ -1,50 +1,49 @@
 <section class="section">
-  <h1 class="section-title">Contact</h1>
-  <p class="mt-3 max-w-2xl text-muted">
-    The fastest way to reach East Lanka is WhatsApp. You can also find us on Facebook and Instagram.
-  </p>
+  <p class="eyebrow">Talk to us</p>
+  <h1 class="section-title mt-2">Contact</h1>
+  <p class="section-copy">The fastest way to reach East Lanka is WhatsApp. You can also find us on Facebook and Instagram.</p>
   <div class="section-rule"></div>
 
-  <div class="mt-10 grid gap-6 md:grid-cols-3">
+  <div class="mt-10 grid gap-5 md:grid-cols-3">
     <a
       [href]="whatsappUrl"
       target="_blank"
       rel="noopener noreferrer"
-      class="rounded-3xl border border-forest/10 bg-white p-6 transition hover:border-gold"
+      class="soft-card p-6 hover:-translate-y-0.5 hover:border-gold/40"
     >
-      <p class="text-sm tracking-wide text-gold uppercase">WhatsApp</p>
-      <h2 class="mt-2 font-display text-2xl text-forest">Chat with us</h2>
-      <p class="mt-3 text-sm text-muted">Ask about stock, delivery or a product you saw on Facebook.</p>
+      <p class="eyebrow">WhatsApp</p>
+      <h2 class="mt-3 font-display text-2xl text-navy">Chat with us</h2>
+      <p class="mt-3 text-sm leading-6 text-muted">Ask about stock, delivery or a product you saw on Facebook.</p>
       <p class="mt-6 text-sm font-semibold text-forest">Open WhatsApp</p>
     </a>
     <a
       [href]="site.facebookUrl"
       target="_blank"
       rel="noopener noreferrer"
-      class="rounded-3xl border border-forest/10 bg-white p-6 transition hover:border-gold"
+      class="soft-card p-6 hover:-translate-y-0.5 hover:border-gold/40"
     >
-      <p class="text-sm tracking-wide text-gold uppercase">Facebook</p>
-      <h2 class="mt-2 font-display text-2xl text-forest">{{ site.name }}</h2>
-      <p class="mt-3 text-sm text-muted">New arrivals and offers as they go up on the page.</p>
+      <p class="eyebrow">Facebook</p>
+      <h2 class="mt-3 font-display text-2xl text-navy">{{ site.name }}</h2>
+      <p class="mt-3 text-sm leading-6 text-muted">New arrivals and offers as they go up on the page.</p>
       <p class="mt-6 text-sm font-semibold text-forest">Visit Facebook</p>
     </a>
     <a
       [href]="site.instagramUrl"
       target="_blank"
       rel="noopener noreferrer"
-      class="rounded-3xl border border-forest/10 bg-white p-6 transition hover:border-gold"
+      class="soft-card p-6 hover:-translate-y-0.5 hover:border-gold/40"
     >
-      <p class="text-sm tracking-wide text-gold uppercase">Instagram</p>
-      <h2 class="mt-2 font-display text-2xl text-forest">{{ site.name }}</h2>
-      <p class="mt-3 text-sm text-muted">Product photos and stories from the catalogue.</p>
+      <p class="eyebrow">Instagram</p>
+      <h2 class="mt-3 font-display text-2xl text-navy">{{ site.name }}</h2>
+      <p class="mt-3 text-sm leading-6 text-muted">Product photos and stories from the catalogue.</p>
       <p class="mt-6 text-sm font-semibold text-forest">Visit Instagram</p>
     </a>
   </div>
 
-  <div class="mt-10 rounded-3xl bg-forest-dark p-8 text-cream">
-    <p class="text-gold">{{ site.location }}</p>
-    <p class="mt-2">{{ site.email }}</p>
-    <p class="mt-4 max-w-xl text-sm text-cream/70">
+  <div class="mt-10 rounded-3xl bg-navy p-8 text-white sm:p-10">
+    <p class="eyebrow">Sri Lanka</p>
+    <p class="mt-3 font-display text-2xl">{{ site.email }}</p>
+    <p class="mt-3 max-w-xl text-sm leading-6 text-white/65">
       We confirm price, stock and delivery over WhatsApp after you send a product enquiry.
     </p>
   </div>

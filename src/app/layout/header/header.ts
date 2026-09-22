@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SITE_CONFIG } from '../../core/data/site-config';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
+import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, CloudinaryUrlPipe],
   templateUrl: './header.html',
 })
 export class Header {

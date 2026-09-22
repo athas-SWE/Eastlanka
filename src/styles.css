@@ -2,16 +2,20 @@
 
 @theme {
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Source Serif 4", ui-serif, Georgia, serif;
-  --color-forest: #14532d;
-  --color-forest-dark: #0c2e1c;
-  --color-forest-light: #1f6b40;
-  --color-gold: #c4a35a;
-  --color-gold-dark: #9a7b32;
-  --color-cream: #f6f1e7;
-  --color-cream-dark: #ebe3d4;
-  --color-ink: #14201a;
-  --color-muted: #5c6b63;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --color-forest: #1f8a34;
+  --color-forest-dark: #163a66;
+  --color-forest-light: #2e9b3f;
+  --color-navy: #163a66;
+  --color-navy-dark: #0f2747;
+  --color-teal: #1a9b8a;
+  --color-sky: #2b7de1;
+  --color-gold: #efb400;
+  --color-gold-dark: #d89a00;
+  --color-cream: #f5f8fb;
+  --color-cream-dark: #e7eef5;
+  --color-ink: #163a66;
+  --color-muted: #5a6b7c;
   --color-whatsapp: #25d366;
 }
 
@@ -24,39 +28,88 @@
     @apply bg-cream font-sans text-ink antialiased;
   }
 
+  ::selection {
+    background: color-mix(in srgb, var(--color-gold) 35%, white);
+    color: var(--color-navy);
+  }
+
   h1,
   h2,
   h3 {
-    @apply font-display tracking-tight;
+    @apply font-display font-semibold tracking-tight text-balance;
+  }
+
+  a,
+  button,
+  input,
+  select {
+    @apply outline-none;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible {
+    @apply ring-2 ring-gold ring-offset-2 ring-offset-cream;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest px-6 py-3 text-sm font-semibold tracking-wide text-cream transition duration-200 hover:bg-forest-dark;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest px-6 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-forest-light hover:shadow-md;
   }
 
   .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold tracking-wide text-forest-dark transition duration-200 hover:bg-gold-dark hover:text-cream;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-navy shadow-sm transition duration-200 hover:bg-gold-dark hover:text-navy hover:shadow-md;
   }
 
   .btn-whatsapp {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-semibold tracking-wide text-white transition duration-200 hover:bg-[#1ebe5d];
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-[#1ebe5d] hover:shadow-md;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-cream/40 px-6 py-3 text-sm font-semibold tracking-wide text-cream transition duration-200 hover:bg-cream hover:text-forest;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/35 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-white hover:text-navy;
+  }
+
+  .btn-quiet {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-navy/15 bg-white px-6 py-3 text-sm font-semibold text-navy transition duration-200 hover:border-navy/30 hover:bg-cream;
+  }
+
+  .field {
+    @apply w-full rounded-full border border-navy/12 bg-white px-5 py-3 text-sm text-navy transition placeholder:text-muted focus:border-gold;
   }
 
   .section {
-    @apply mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold tracking-[0.2em] text-gold uppercase;
   }
 
   .section-title {
-    @apply text-3xl text-forest sm:text-4xl;
+    @apply text-3xl text-navy sm:text-4xl;
+  }
+
+  .section-copy {
+    @apply mt-3 max-w-2xl text-[15px] leading-7 text-muted;
   }
 
   .section-rule {
-    @apply mt-3 h-px w-24 bg-gold;
+    @apply mt-4 h-1 w-14 rounded-full;
+    background: linear-gradient(90deg, #efb400 0%, #1f8a34 50%, #2b7de1 100%);
+  }
+
+  .brand-bar {
+    height: 3px;
+    background: linear-gradient(90deg, #efb400 0%, #1f8a34 50%, #2b7de1 100%);
+  }
+
+  .brand-wordmark {
+    @apply font-display text-[1.35rem] leading-none font-bold tracking-tight;
+  }
+
+  .soft-card {
+    @apply rounded-2xl border border-navy/8 bg-white shadow-[0_8px_30px_rgb(15,39,71,0.04)] transition duration-200;
   }
 }
