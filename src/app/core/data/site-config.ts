@@ -3,11 +3,16 @@ export const SITE_CONFIG = {
   tagline: 'New Products • Better Tomorrow',
   heroTitle: 'Discover Something New',
   heroSubtitle: 'Products for a Better Tomorrow',
-  whatsappNumber: '94771234567',
+  whatsappNumber: '94712491313',
   facebookUrl: 'https://www.facebook.com/eastlanka',
   instagramUrl: 'https://www.instagram.com/eastlanka',
   email: 'hello@eastlanka.lk',
   location: 'Sri Lanka',
+  freeDelivery: {
+    minItems: 3,
+    headline: 'Free delivery when you order 3 products',
+    detail: 'Order any 3 products together and delivery is on us.',
+  },
   logoImage: 'offer-lanka/brand-logo',
   adminPassword: 'eastlanka',
   cloudinary: {

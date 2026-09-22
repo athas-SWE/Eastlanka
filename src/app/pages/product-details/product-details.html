@@ -46,6 +46,13 @@
           }
           <a routerLink="/products" class="btn-quiet w-full sm:w-auto">Back to products</a>
         </div>
+        <div class="mt-6 flex max-w-xl items-start gap-3 rounded-2xl border border-gold/40 bg-gold/10 px-4 py-3">
+          <span class="text-xl leading-none" aria-hidden="true">🚚</span>
+          <div>
+            <p class="font-semibold text-navy">{{ site.freeDelivery.headline }}</p>
+            <p class="mt-0.5 text-sm text-muted">{{ site.freeDelivery.detail }}</p>
+          </div>
+        </div>
       </div>
     </div>
   } @else {

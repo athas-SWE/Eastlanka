@@ -48,7 +48,7 @@ export class Home {
   readonly steps = [
     { title: 'Pick a product', text: 'Browse the catalogue and open anything you like.' },
     { title: 'Tap WhatsApp', text: 'The product name, code and price are filled in for you.' },
-    { title: 'We confirm', text: 'Stock and delivery are sorted in the same chat.' },
+    { title: 'We confirm', text: 'Stock and delivery are sorted in the same chat. Order 3 products and delivery is free.' },
   ];
 
   readonly reasons = [

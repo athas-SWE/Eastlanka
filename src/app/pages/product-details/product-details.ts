@@ -1,6 +1,7 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
+import { SITE_CONFIG } from '../../core/data/site-config';
 import { ProductService } from '../../core/services/product.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { discountPercent, formatLkr } from '../../core/utils/money';
@@ -22,6 +23,8 @@ export class ProductDetails {
     const product = this.product();
     return product ? this.productService.categoryBySlug(product.category) : undefined;
   });
+
+  readonly site = SITE_CONFIG;
 
   protected formatLkr = formatLkr;
   protected discountPercent = discountPercent;
