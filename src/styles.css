@@ -22,10 +22,15 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
     @apply bg-cream font-sans text-ink antialiased;
+    overflow-x: clip;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   ::selection {
@@ -56,23 +61,23 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-forest px-6 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-forest-light hover:shadow-md;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-forest px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-forest-light hover:shadow-md sm:px-6;
   }
 
   .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-navy shadow-sm transition duration-200 hover:bg-gold-dark hover:text-navy hover:shadow-md;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold text-navy shadow-sm transition duration-200 hover:bg-gold-dark hover:text-navy hover:shadow-md sm:px-6;
   }
 
   .btn-whatsapp {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-whatsapp px-6 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-[#1ebe5d] hover:shadow-md;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-whatsapp px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-[#1ebe5d] hover:shadow-md sm:px-6;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/35 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-white hover:text-navy;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/35 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:bg-white hover:text-navy sm:px-6;
   }
 
   .btn-quiet {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-navy/15 bg-white px-6 py-3 text-sm font-semibold text-navy transition duration-200 hover:border-navy/30 hover:bg-cream;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-navy/15 bg-white px-5 py-3 text-sm font-semibold text-navy transition duration-200 hover:border-navy/30 hover:bg-cream sm:px-6;
   }
 
   .btn-danger {
@@ -80,23 +85,23 @@
   }
 
   .field {
-    @apply w-full rounded-full border border-navy/12 bg-white px-5 py-3 text-sm text-navy transition placeholder:text-muted focus:border-gold;
+    @apply w-full min-h-11 rounded-full border border-navy/12 bg-white px-4 py-3 text-base text-navy transition placeholder:text-muted focus:border-gold sm:px-5 sm:text-sm;
   }
 
   .field-area {
-    @apply w-full rounded-2xl border border-navy/12 bg-white px-5 py-3 text-sm text-navy transition placeholder:text-muted focus:border-gold;
+    @apply w-full rounded-2xl border border-navy/12 bg-white px-4 py-3 text-base text-navy transition placeholder:text-muted focus:border-gold sm:px-5 sm:text-sm;
   }
 
   .section {
-    @apply mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20;
+    @apply mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20;
   }
 
   .eyebrow {
-    @apply text-xs font-semibold tracking-[0.2em] text-gold uppercase;
+    @apply text-[11px] font-semibold tracking-[0.16em] text-gold uppercase sm:text-xs sm:tracking-[0.2em];
   }
 
   .section-title {
-    @apply text-3xl text-navy sm:text-4xl;
+    @apply text-[1.75rem] text-navy sm:text-4xl;
   }
 
   .section-copy {
@@ -114,10 +119,31 @@
   }
 
   .brand-wordmark {
-    @apply font-display text-[1.35rem] leading-none font-bold tracking-tight;
+    @apply font-display text-[1.2rem] leading-none font-bold tracking-tight sm:text-[1.35rem];
   }
 
   .soft-card {
     @apply rounded-2xl border border-navy/8 bg-white shadow-[0_8px_30px_rgb(15,39,71,0.04)] transition duration-200;
+  }
+
+  .spotlight-enter {
+    animation: spotlight-in 0.45s ease-out both;
+  }
+}
+
+@keyframes spotlight-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-enter {
+    animation: none;
   }
 }

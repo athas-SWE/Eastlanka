@@ -6,7 +6,7 @@
       <p class="section-copy">Add a product, attach a photo, and it appears in the shop.</p>
       <div class="section-rule"></div>
     </div>
-    <a routerLink="/admin/products/new" class="btn-primary">Add product</a>
+    <a routerLink="/admin/products/new" class="btn-primary w-full sm:w-auto">Add product</a>
   </div>
 
   @if (error()) {
@@ -16,12 +16,40 @@
     <p class="mt-6 rounded-2xl bg-forest/10 px-4 py-3 text-sm text-forest">{{ message() }}</p>
   }
 
-  <div class="mt-8 overflow-hidden rounded-2xl border border-navy/8 bg-white">
+  <div class="mt-8 space-y-3 md:hidden">
+    @for (product of products(); track product.code) {
+      <article class="soft-card p-4">
+        <div class="flex items-center gap-3">
+          <img [src]="product.image | cloudinaryUrl:80" [alt]="" class="h-14 w-14 shrink-0 rounded-xl object-cover" />
+          <div class="min-w-0 flex-1">
+            <p class="truncate font-medium text-navy">{{ product.name }}</p>
+            <p class="text-xs text-muted">{{ product.code }} · {{ categoryName(product.category) }}</p>
+            <p class="mt-1 text-sm font-semibold text-navy">{{ formatLkr(product.price) }}</p>
+          </div>
+        </div>
+        <div class="mt-4 flex gap-2">
+          <a [routerLink]="['/admin/products', product.code]" class="btn-quiet flex-1 !px-3 !py-2 text-xs">Edit</a>
+          <button
+            type="button"
+            class="btn-danger flex-1"
+            [disabled]="busy() === product.code"
+            (click)="remove(product.code, product.name)"
+          >
+            Delete
+          </button>
+        </div>
+      </article>
+    } @empty {
+      <p class="rounded-2xl border border-dashed border-navy/15 bg-white px-4 py-12 text-center text-muted">No products yet.</p>
+    }
+  </div>
+
+  <div class="mt-8 hidden overflow-x-auto rounded-2xl border border-navy/8 bg-white md:block">
     <table class="min-w-full text-left text-sm">
       <thead class="bg-cream text-xs tracking-[0.12em] text-muted uppercase">
         <tr>
           <th class="px-4 py-3 font-semibold">Product</th>
-          <th class="hidden px-4 py-3 font-semibold sm:table-cell">Category</th>
+          <th class="px-4 py-3 font-semibold">Category</th>
           <th class="px-4 py-3 font-semibold">Price</th>
           <th class="px-4 py-3 font-semibold"></th>
         </tr>
@@ -38,7 +66,7 @@
                 </div>
               </div>
             </td>
-            <td class="hidden px-4 py-3 text-muted sm:table-cell">{{ categoryName(product.category) }}</td>
+            <td class="px-4 py-3 text-muted">{{ categoryName(product.category) }}</td>
             <td class="px-4 py-3 text-navy">{{ formatLkr(product.price) }}</td>
             <td class="px-4 py-3 text-right">
               <div class="flex justify-end gap-2">

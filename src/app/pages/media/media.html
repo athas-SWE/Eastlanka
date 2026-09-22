@@ -21,14 +21,14 @@
   @if (uploaded().length) {
     <ul class="mt-10 space-y-4">
       @for (item of uploaded(); track item.publicId) {
-        <li class="soft-card flex gap-4 p-4">
+        <li class="soft-card flex flex-col gap-4 p-4 sm:flex-row">
           <img [src]="item.publicId | cloudinaryUrl:160" [alt]="item.publicId" class="h-20 w-20 rounded-xl object-cover" />
           <div class="min-w-0 flex-1">
             <p class="truncate font-medium text-navy">{{ item.publicId }}</p>
             <p class="mt-1 truncate text-xs text-muted">{{ item.secureUrl }}</p>
-            <div class="mt-3 flex flex-wrap gap-2">
-              <button type="button" class="btn-primary" (click)="copy(item.publicId)">Copy public ID</button>
-              <button type="button" class="btn-quiet" (click)="copy(item.secureUrl)">Copy URL</button>
+            <div class="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+              <button type="button" class="btn-primary w-full sm:w-auto" (click)="copy(item.publicId)">Copy public ID</button>
+              <button type="button" class="btn-quiet w-full sm:w-auto" (click)="copy(item.secureUrl)">Copy URL</button>
             </div>
           </div>
         </li>

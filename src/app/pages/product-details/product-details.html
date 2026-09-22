@@ -4,23 +4,23 @@
   @if (item) {
     @let onOffer = item.originalPrice && item.originalPrice > item.price;
     @let orderLink = orderUrl();
-    <nav class="text-sm text-muted">
+    <nav class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
       <a routerLink="/products" class="hover:text-navy">Products</a>
       @if (category(); as cat) {
-        <span class="mx-2 text-navy/20">/</span>
+        <span class="text-navy/20">/</span>
         <a [routerLink]="['/categories', cat.slug]" class="hover:text-navy">{{ cat.name }}</a>
       }
-      <span class="mx-2 text-navy/20">/</span>
+      <span class="text-navy/20">/</span>
       <span class="text-navy">{{ item.name }}</span>
     </nav>
 
-    <div class="mt-8 grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
-      <div class="overflow-hidden rounded-3xl border border-navy/8 bg-white shadow-[0_8px_30px_rgb(15,39,71,0.04)]">
+    <div class="mt-6 grid items-start gap-8 sm:mt-8 lg:grid-cols-2 lg:gap-14">
+      <div class="overflow-hidden rounded-2xl border border-navy/8 bg-white shadow-[0_8px_30px_rgb(15,39,71,0.04)] sm:rounded-3xl">
         <img [src]="item.image | cloudinaryUrl:1000" [alt]="item.name" class="aspect-square w-full object-cover" />
       </div>
       <div class="lg:pt-4">
         <p class="eyebrow">{{ item.code }}</p>
-        <h1 class="mt-3 text-4xl text-navy sm:text-5xl">{{ item.name }}</h1>
+        <h1 class="mt-3 text-[1.75rem] text-navy sm:text-5xl">{{ item.name }}</h1>
         <div class="mt-5 flex flex-wrap items-end gap-3">
           <p class="font-display text-3xl text-navy">{{ formatLkr(item.price) }}</p>
           @if (onOffer) {
@@ -38,13 +38,13 @@
           }
         </p>
         <p class="mt-6 max-w-xl text-[15px] leading-7 text-muted">{{ item.description }}</p>
-        <div class="mt-8 flex flex-wrap gap-3">
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           @if (item.available && orderLink) {
-            <a [href]="orderLink" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">Order on WhatsApp</a>
+            <a [href]="orderLink" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full sm:w-auto">Order on WhatsApp</a>
           } @else {
-            <button type="button" class="btn-quiet text-muted" disabled>Currently unavailable</button>
+            <button type="button" class="btn-quiet w-full text-muted sm:w-auto" disabled>Currently unavailable</button>
           }
-          <a routerLink="/products" class="btn-quiet">Back to products</a>
+          <a routerLink="/products" class="btn-quiet w-full sm:w-auto">Back to products</a>
         </div>
       </div>
     </div>
