@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminAuthService } from '../../core/services/admin-auth.service';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -8,6 +9,7 @@ import { AdminAuthService } from '../../core/services/admin-auth.service';
 })
 export class AdminLogin {
   private readonly auth = inject(AdminAuthService);
+  private readonly seo = inject(SeoService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
@@ -15,6 +17,12 @@ export class AdminLogin {
   readonly error = signal('');
 
   constructor() {
+    this.seo.apply({
+      title: 'Admin sign in | East Lanka',
+      description: 'Sign in to the East Lanka catalogue admin.',
+      path: '/admin/login',
+      noindex: true,
+    });
     if (this.auth.isLoggedIn()) {
       void this.router.navigateByUrl(this.returnUrl());
     }

@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node scripts/dev.mjs",
-    "build": "ng build",
+    "build": "node scripts/generate-sitemap.mjs && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "cloudinary:upload": "node scripts/upload-to-cloudinary.mjs",

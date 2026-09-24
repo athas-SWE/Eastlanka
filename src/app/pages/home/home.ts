@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { SITE_CONFIG } from '../../core/data/site-config';
 import { Product } from '../../core/models/product.model';
 import { ProductService } from '../../core/services/product.service';
+import { SeoService, logoUrl } from '../../core/services/seo.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { discountPercent, formatLkr } from '../../core/utils/money';
 import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
@@ -19,6 +20,7 @@ const SPOTLIGHT_INTERVAL = 4500;
 export class Home {
   private readonly catalogue = inject(ProductService);
   private readonly whatsapp = inject(WhatsAppService);
+  private readonly seo = inject(SeoService);
 
   readonly site = SITE_CONFIG;
   readonly categories = this.catalogue.categories;
@@ -60,6 +62,22 @@ export class Home {
   ];
 
   constructor() {
+    this.seo.apply({
+      title: 'East Lanka | New Products • Better Tomorrow',
+      description:
+        'East Lanka is a Sri Lankan product catalogue. Browse electronics, fashion, home, accessories and gifts, then order on WhatsApp.',
+      path: '/',
+      image: logoUrl(),
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: SITE_CONFIG.name,
+        url: SITE_CONFIG.url,
+        email: SITE_CONFIG.email,
+        logo: logoUrl(),
+        sameAs: [SITE_CONFIG.facebookUrl, SITE_CONFIG.instagramUrl],
+      },
+    });
     const reduceMotion =
       typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) {

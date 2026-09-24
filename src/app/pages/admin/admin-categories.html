@@ -19,7 +19,7 @@
   <div class="mt-8 grid gap-4 sm:grid-cols-2">
     @for (category of categories(); track category.slug) {
       <article class="soft-card overflow-hidden">
-        <img [src]="category.image | cloudinaryUrl:640" [alt]="" class="h-36 w-full object-cover" />
+        <img [src]="category.image | cloudinaryUrl:640" [alt]="category.name" class="h-36 w-full object-cover" />
         <div class="p-5">
           <h2 class="font-display text-xl text-navy">{{ category.name }}</h2>
           <p class="mt-1 text-sm text-muted">{{ category.blurb }}</p>

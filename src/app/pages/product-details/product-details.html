@@ -5,6 +5,8 @@
     @let onOffer = item.originalPrice && item.originalPrice > item.price;
     @let orderLink = orderUrl();
     <nav class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
+      <a routerLink="/" class="hover:text-navy">Home</a>
+      <span class="text-navy/20">/</span>
       <a routerLink="/products" class="hover:text-navy">Products</a>
       @if (category(); as cat) {
         <span class="text-navy/20">/</span>
@@ -50,7 +52,7 @@
           <a routerLink="/products" class="btn-quiet w-full sm:w-auto">Back to products</a>
         </div>
         <div class="mt-6 flex max-w-xl items-start gap-3 rounded-2xl border border-gold/40 bg-gold/10 px-4 py-3">
-          <span class="text-xl leading-none" aria-hidden="true">🚚</span>
+          <app-icon name="truck" class="mt-0.5 h-5 w-5 text-navy" />
           <div>
             <p class="font-semibold text-navy">{{ site.freeDelivery.headline }}</p>
             <p class="mt-0.5 text-sm text-muted">{{ site.freeDelivery.detail }}</p>

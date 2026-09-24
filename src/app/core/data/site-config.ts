@@ -7,6 +7,7 @@ export const SITE_CONFIG = {
   facebookUrl: 'https://www.facebook.com/eastlanka',
   instagramUrl: 'https://www.instagram.com/eastlanka',
   email: 'hello@eastlanka.lk',
+  url: 'https://eastlanka.com.lk',
   location: 'Sri Lanka',
   freeDelivery: {
     minItems: 3,

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AdminAuthService } from '../../core/services/admin-auth.service';
+import { SeoService } from '../../core/services/seo.service';
 import { Icon } from '../../shared/icon/icon';
 
 @Component({
@@ -11,6 +12,16 @@ import { Icon } from '../../shared/icon/icon';
 export class AdminShell {
   private readonly auth = inject(AdminAuthService);
   private readonly router = inject(Router);
+  private readonly seo = inject(SeoService);
+
+  constructor() {
+    this.seo.apply({
+      title: 'Admin | East Lanka',
+      description: 'East Lanka catalogue admin.',
+      path: '/admin',
+      noindex: true,
+    });
+  }
 
   readonly links = [
     { path: '/admin', label: 'Dashboard', exact: true, icon: 'grid' as const },

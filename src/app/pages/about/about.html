@@ -15,6 +15,15 @@
     </p>
     <p>That keeps things personal while the catalogue stays easy to browse on a phone.</p>
   </div>
+  <h2 class="mt-12 font-display text-2xl text-navy">Ordering and delivery</h2>
+  <div class="mt-6 space-y-4">
+    @for (item of faq; track item.question) {
+      <article class="soft-card p-5">
+        <h3 class="text-navy">{{ item.question }}</h3>
+        <p class="mt-2 text-sm leading-6 text-muted">{{ item.answer }}</p>
+      </article>
+    }
+  </div>
   <div class="mt-10 flex flex-wrap gap-3">
     <a routerLink="/products" class="btn-primary w-full sm:w-auto">Browse products</a>
     <a routerLink="/contact" class="btn-quiet w-full sm:w-auto">Contact</a>

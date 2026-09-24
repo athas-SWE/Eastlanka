@@ -1,5 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ProductService } from '../../core/services/product.service';
+import { SeoService } from '../../core/services/seo.service';
 import { ProductGrid } from '../../shared/product-grid/product-grid';
 
 @Component({
@@ -9,6 +10,15 @@ import { ProductGrid } from '../../shared/product-grid/product-grid';
 })
 export class Products {
   private readonly productService = inject(ProductService);
+  private readonly seo = inject(SeoService);
+
+  constructor() {
+    this.seo.apply({
+      title: 'Products | East Lanka',
+      description: 'Browse the East Lanka catalogue. Compare prices in rupees and order on WhatsApp.',
+      path: '/products',
+    });
+  }
 
   readonly categories = this.productService.categories;
   readonly query = signal('');
