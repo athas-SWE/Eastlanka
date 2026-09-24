@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../core/services/product.service';
 import { formatLkr } from '../../core/utils/money';
 import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
@@ -11,6 +11,7 @@ import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
 })
 export class AdminProducts {
   private readonly catalogue = inject(ProductService);
+  private readonly router = inject(Router);
 
   readonly products = this.catalogue.products;
   readonly categories = this.catalogue.categories;
@@ -19,6 +20,17 @@ export class AdminProducts {
   readonly error = signal('');
 
   protected formatLkr = formatLkr;
+
+  constructor() {
+    const notice = this.router.getCurrentNavigation()?.extras.state?.['notice'] ?? history.state?.notice;
+    if (typeof notice === 'string' && notice) {
+      if (notice.includes('failed')) {
+        this.error.set(notice);
+      } else {
+        this.message.set(notice);
+      }
+    }
+  }
 
   categoryName(slug: string): string {
     return this.catalogue.categoryBySlug(slug)?.name ?? slug;

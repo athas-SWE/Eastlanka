@@ -1,6 +1,6 @@
 # East Lanka
 
-Frontend-only product catalogue with WhatsApp ordering. No backend, cart, or payments.
+Product catalogue with WhatsApp ordering. The shop pages are a static Angular app. Facebook auto-post uses private Vercel API routes so the page token never ships to the browser.
 
 **East Lanka — New Products • Better Tomorrow**
 
@@ -51,6 +51,45 @@ Edit [`src/app/core/data/site-config.ts`](src/app/core/data/site-config.ts):
 - `whatsappNumber` — country code + number, no `+` or spaces (example: `94771234567`)
 - `facebookUrl`
 - `instagramUrl`
+
+## Facebook Page auto-post
+
+Saving a **new** product can publish a photo post on the East Lanka Facebook Page. Editing a product does not post again.
+
+The Page access token is encrypted with `FB_SETTINGS_KEY` and stored as a Cloudinary authenticated file (`offer-lanka/private/facebook-settings`). It is not written to git, `site-config.ts`, or the public catalogue.
+
+### One-time Meta setup
+
+1. Open [developers.facebook.com/apps](https://developers.facebook.com/apps) and create an app. Add the **Facebook Login** product.
+2. The person who admins [facebook.com/eastlanka](https://www.facebook.com/eastlanka) must be an admin, developer, or tester on that app. Development mode is enough for this one page.
+3. Open [Graph API Explorer](https://developers.facebook.com/tools/explorer/), select the app, and generate a User access token with `pages_show_list`, `pages_manage_posts`, and `pages_read_engagement`.
+4. Call `GET /me/accounts`. Copy the East Lanka **Page ID** and that page’s **access token**.
+5. Exchange the short-lived user token for a long-lived one:
+
+```text
+GET https://graph.facebook.com/v21.0/oauth/access_token
+  ?grant_type=fb_exchange_token
+  &client_id={app-id}
+  &client_secret={app-secret}
+  &fb_exchange_token={short-lived-user-token}
+```
+
+6. Call `GET /me/accounts` again with the long-lived user token. The Page token in that response is the long-lived token to paste into admin. Do not commit it.
+
+### Vercel environment
+
+Set these before auto-post works in production:
+
+- `ADMIN_PASSWORD` — same password the admin types at `/admin/login`
+- `FB_SETTINGS_KEY` — random string, at least 16 characters
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
+- `CLOUDINARY_CLOUD_NAME` (optional, defaults to `derggujli`)
+- `SITE_URL` — public site origin, no trailing slash (used in the post link)
+
+Then sign in at `/admin/facebook`, paste the Page ID and token, leave **Automatically post new products** on, and use **Test connection**. The screen shows the page name. It never shows the token again.
+
+`npm start` serves the shop only. The `/api/facebook/*` routes run on Vercel.
 
 ## Deploy (static hosting)
 

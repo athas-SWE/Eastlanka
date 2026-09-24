@@ -79,6 +79,20 @@
         </label>
       </div>
 
+      @if (!isNew() && existing()?.facebookPostId) {
+        <p class="rounded-2xl bg-forest/10 px-4 py-3 text-sm text-forest">
+          Already on Facebook.
+          <a
+            class="underline"
+            [href]="'https://www.facebook.com/' + existing()?.facebookPostId"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View post
+          </a>
+        </p>
+      }
+
       @if (error()) {
         <p class="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-800">{{ error() }}</p>
       }

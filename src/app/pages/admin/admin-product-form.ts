@@ -2,6 +2,7 @@ import { Component, OnDestroy, computed, effect, inject, input, signal } from '@
 import { Router, RouterLink } from '@angular/router';
 import { Product } from '../../core/models/product.model';
 import { CloudinaryService } from '../../core/services/cloudinary.service';
+import { FacebookService } from '../../core/services/facebook.service';
 import { ProductService } from '../../core/services/product.service';
 import { nextProductCode, nextProductId, slugify } from '../../core/utils/catalogue';
 import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
@@ -25,6 +26,7 @@ interface ProductDraft {
 export class AdminProductForm implements OnDestroy {
   private readonly catalogue = inject(ProductService);
   private readonly cloudinary = inject(CloudinaryService);
+  private readonly facebook = inject(FacebookService);
   private readonly router = inject(Router);
 
   readonly code = input<string>();
@@ -146,11 +148,27 @@ export class AdminProductForm implements OnDestroy {
         description: draft.description.trim(),
         available: draft.available,
         newArrival: draft.newArrival,
+        facebookPostId: existing?.facebookPostId,
       };
 
-      const remote = await this.catalogue.saveProduct(product, this.isNew());
+      const creating = this.isNew();
+      const remote = await this.catalogue.saveProduct(product, creating);
+      let notice = remote ? 'Product saved.' : 'Product saved on this device.';
+
+      if (creating && !product.facebookPostId) {
+        const posted = await this.facebook.publishIfEnabled(product);
+        if (posted.status === 'posted' && posted.postId) {
+          await this.catalogue.saveProduct({ ...product, facebookPostId: posted.postId }, false);
+          notice = 'Product saved and posted to Facebook.';
+        } else if (posted.status === 'failed') {
+          notice = remote
+            ? 'Product saved. Facebook post failed.'
+            : 'Product saved on this device. Facebook post failed.';
+        }
+      }
+
       await this.router.navigateByUrl('/admin/products', {
-        state: { notice: remote ? 'Product saved.' : 'Product saved on this device.' },
+        state: { notice },
       });
     } catch (err) {
       this.error.set(err instanceof Error ? err.message : 'Could not save product.');

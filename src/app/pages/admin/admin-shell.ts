@@ -16,6 +16,7 @@ export class AdminShell {
     { path: '/admin/products', label: 'Products', exact: false },
     { path: '/admin/categories', label: 'Categories', exact: false },
     { path: '/admin/media', label: 'Images', exact: false },
+    { path: '/admin/facebook', label: 'Facebook', exact: false },
   ];
 
   signOut(): void {

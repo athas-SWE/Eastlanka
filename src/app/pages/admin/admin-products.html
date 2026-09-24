@@ -23,7 +23,12 @@
           <img [src]="product.image | cloudinaryUrl:80" [alt]="" class="h-14 w-14 shrink-0 rounded-xl object-cover" />
           <div class="min-w-0 flex-1">
             <p class="truncate font-medium text-navy">{{ product.name }}</p>
-            <p class="text-xs text-muted">{{ product.code }} · {{ categoryName(product.category) }}</p>
+                  <p class="text-xs text-muted">
+                    {{ product.code }} · {{ categoryName(product.category) }}
+                    @if (product.facebookPostId) {
+                      · On Facebook
+                    }
+                  </p>
             <p class="mt-1 text-sm font-semibold text-navy">{{ formatLkr(product.price) }}</p>
           </div>
         </div>
@@ -62,7 +67,12 @@
                 <img [src]="product.image | cloudinaryUrl:80" [alt]="" class="h-12 w-12 rounded-xl object-cover" />
                 <div>
                   <p class="font-medium text-navy">{{ product.name }}</p>
-                  <p class="text-xs text-muted">{{ product.code }}</p>
+                  <p class="text-xs text-muted">
+                    {{ product.code }}
+                    @if (product.facebookPostId) {
+                      · On Facebook
+                    }
+                  </p>
                 </div>
               </div>
             </td>

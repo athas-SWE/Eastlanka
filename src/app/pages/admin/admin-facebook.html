@@ -1,0 +1,69 @@
+<section class="section max-w-3xl">
+  <p class="eyebrow">Admin</p>
+  <h1 class="section-title mt-2">Facebook Page</h1>
+  <p class="section-copy">
+    Connect the East Lanka page once. New products are posted there when automatic posting is on. The token stays on the server.
+  </p>
+  <div class="section-rule"></div>
+
+  @if (loading()) {
+    <p class="mt-8 text-sm text-muted">Loading Facebook settings…</p>
+  } @else {
+    <form class="mt-8 space-y-5" (submit)="save($event)">
+      @if (connected()) {
+        <p class="rounded-2xl bg-forest/10 px-4 py-3 text-sm text-forest">
+          Connected{{ pageName() ? ' to ' + pageName() : '' }}. Leave the token blank to keep the saved one.
+        </p>
+      }
+
+      <label class="block">
+        <span class="mb-2 block text-xs font-semibold tracking-[0.14em] text-muted uppercase">Page ID</span>
+        <input type="text" class="field" [value]="pageId()" (input)="setPageId($event)" autocomplete="off" />
+      </label>
+
+      <label class="block">
+        <span class="mb-2 block text-xs font-semibold tracking-[0.14em] text-muted uppercase">Page access token</span>
+        <input
+          type="password"
+          class="field"
+          [value]="token()"
+          (input)="setToken($event)"
+          autocomplete="off"
+          placeholder="{{ connected() ? 'Saved on the server' : '' }}"
+        />
+      </label>
+
+      <label class="flex items-center gap-3 text-sm text-navy">
+        <input type="checkbox" class="h-4 w-4 accent-forest" [checked]="autoPost()" (change)="setAutoPost($event)" />
+        Automatically post new products
+      </label>
+
+      @if (lastPostUrl()) {
+        <p class="text-sm text-muted">
+          Last post
+          @if (lastPostAt()) {
+            <span> · {{ lastPostAt() }}</span>
+          }
+          ·
+          <a class="text-navy underline" [href]="lastPostUrl()" target="_blank" rel="noopener noreferrer">View on Facebook</a>
+        </p>
+      }
+
+      @if (error()) {
+        <p class="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-800">{{ error() }}</p>
+      }
+      @if (message()) {
+        <p class="rounded-2xl bg-forest/10 px-4 py-3 text-sm text-forest">{{ message() }}</p>
+      }
+
+      <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <button type="submit" class="btn-primary w-full sm:w-auto" [disabled]="saving() || testing()">
+          {{ saving() ? 'Saving…' : 'Save settings' }}
+        </button>
+        <button type="button" class="btn-quiet w-full sm:w-auto" [disabled]="saving() || testing()" (click)="test()">
+          {{ testing() ? 'Testing…' : 'Test connection' }}
+        </button>
+      </div>
+    </form>
+  }
+</section>
