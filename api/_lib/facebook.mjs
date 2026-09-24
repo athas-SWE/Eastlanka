@@ -30,15 +30,18 @@ export function assertAdmin(req) {
 }
 
 export async function readSettings() {
-  const ciphertext = await downloadSettings();
-  if (!ciphertext) {
-    return emptySettings();
-  }
+  let stored = emptySettings();
   try {
-    return normalizeSettings(JSON.parse(decrypt(ciphertext)));
-  } catch {
-    throw new Error('Saved Facebook settings could not be read.');
+    const ciphertext = await downloadSettings();
+    if (ciphertext) {
+      stored = normalizeSettings(JSON.parse(decrypt(ciphertext)));
+    }
+  } catch (err) {
+    if (!envConnection()) {
+      throw err instanceof Error ? err : new Error('Saved Facebook settings could not be read.');
+    }
   }
+  return applyEnvConnection(stored);
 }
 
 export async function writeSettings(settings) {
@@ -125,6 +128,43 @@ export function emptySettings() {
     pageName: '',
     lastPostAt: null,
     lastPostUrl: null,
+  };
+}
+
+function envValue(name) {
+  let value = (process.env[name] ?? '').trim();
+  if (
+    (value.startsWith('"') && value.endsWith('"')) ||
+    (value.startsWith("'") && value.endsWith("'"))
+  ) {
+    value = value.slice(1, -1).trim();
+  }
+  return value;
+}
+
+function envConnection() {
+  const pageId = envValue('FB_PAGE_ID');
+  const pageAccessToken = envValue('FB_PAGE_ACCESS_TOKEN');
+  if (!pageId || !pageAccessToken) {
+    return null;
+  }
+  return {
+    pageId,
+    pageAccessToken,
+    autoPost: envValue('FB_AUTO_POST').toLowerCase() !== 'false',
+  };
+}
+
+function applyEnvConnection(settings) {
+  const fromEnv = envConnection();
+  if (!fromEnv) {
+    return settings;
+  }
+  return {
+    ...settings,
+    pageId: fromEnv.pageId,
+    pageAccessToken: fromEnv.pageAccessToken,
+    autoPost: fromEnv.autoPost,
   };
 }
 

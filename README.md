@@ -74,7 +74,7 @@ GET https://graph.facebook.com/v21.0/oauth/access_token
   &fb_exchange_token={short-lived-user-token}
 ```
 
-6. Call `GET /me/accounts` again with the long-lived user token. The Page token in that response is the long-lived token to paste into admin. Do not commit it.
+6. Call `GET /me/accounts` again with the long-lived user token. Put that Page ID and Page token in `.env`. Do not commit them.
 
 ### Vercel environment
 
@@ -82,14 +82,15 @@ Set these before auto-post works in production:
 
 - `ADMIN_PASSWORD` — same password the admin types at `/admin/login`
 - `FB_SETTINGS_KEY` — random string, at least 16 characters
+- `FB_PAGE_ID` — East Lanka Page ID
+- `FB_PAGE_ACCESS_TOKEN` — long-lived Page access token
+- `FB_AUTO_POST` — `true` to post each new product
 - `CLOUDINARY_API_KEY`
 - `CLOUDINARY_API_SECRET`
 - `CLOUDINARY_CLOUD_NAME` (optional, defaults to `derggujli`)
 - `SITE_URL` — public site origin, no trailing slash (used in the post link)
 
-Then sign in at `/admin/facebook`, paste the Page ID and token, leave **Automatically post new products** on, and use **Test connection**. The screen shows the page name. It never shows the token again.
-
-`npm start` serves the shop only. The `/api/facebook/*` routes run on Vercel.
+Put `FB_PAGE_ID` and `FB_PAGE_ACCESS_TOKEN` in `.env` for local auto-post, and the same names in Vercel for production. There is no admin screen for the Facebook connection. Restart `npm start` after changing `.env`.
 
 ## Deploy (static hosting)
 

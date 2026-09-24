@@ -33,20 +33,6 @@ export class FacebookService {
     return this.request<FacebookStatus>('/api/facebook/settings');
   }
 
-  saveSettings(input: { pageId: string; pageAccessToken: string; autoPost: boolean }): Promise<FacebookStatus> {
-    return this.request<FacebookStatus>('/api/facebook/settings', {
-      method: 'POST',
-      body: input,
-    });
-  }
-
-  testSettings(input: { pageId: string; pageAccessToken: string; autoPost: boolean }): Promise<FacebookStatus> {
-    return this.request<FacebookStatus>('/api/facebook/settings', {
-      method: 'POST',
-      body: { ...input, testOnly: true },
-    });
-  }
-
   async publishIfEnabled(product: Product): Promise<FacebookPublishResult> {
     if (product.facebookPostId) {
       return { status: 'skipped', postId: product.facebookPostId };

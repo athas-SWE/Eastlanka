@@ -1,13 +1,12 @@
-import { assertAdmin, fetchPageName, json, publicStatus, readBody, readSettings, writeSettings } from '../_lib/facebook.mjs';
+import { assertAdmin, fetchPageName, json, publicStatus, readSettings } from '../_lib/facebook.mjs';
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET' && req.method !== 'POST') {
-    res.setHeader('Allow', 'GET, POST');
+  if (req.method !== 'GET') {
+    res.setHeader('Allow', 'GET');
     json(res, 405, { error: 'Method not allowed.' });
     return;
   }
 
-  const body = readBody(req);
   const auth = assertAdmin(req);
   if (!auth.ok) {
     json(res, auth.status, { error: auth.error });
@@ -15,44 +14,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (req.method === 'GET') {
-      const settings = await readSettings();
-      json(res, 200, publicStatus(settings));
-      return;
+    let settings = await readSettings();
+    if (settings.pageId && settings.pageAccessToken && !settings.pageName) {
+      try {
+        settings = { ...settings, pageName: await fetchPageName(settings.pageId, settings.pageAccessToken) };
+      } catch {
+        // Page ID still shows when Facebook does not return a name.
+      }
     }
-
-    const current = await readSettings();
-    const pageId = typeof body.pageId === 'string' && body.pageId.trim() ? body.pageId.trim() : current.pageId;
-    const pageAccessToken =
-      typeof body.pageAccessToken === 'string' && body.pageAccessToken.trim()
-        ? body.pageAccessToken.trim()
-        : current.pageAccessToken;
-    const autoPost = typeof body.autoPost === 'boolean' ? body.autoPost : current.autoPost;
-
-    if (!pageId || !pageAccessToken) {
-      json(res, 400, { error: 'Add a Facebook Page ID and a page access token.' });
-      return;
-    }
-
-    const pageName = await fetchPageName(pageId, pageAccessToken);
-    if (body.testOnly === true) {
-      json(res, 200, {
-        ...publicStatus({ ...current, pageId, pageAccessToken, pageName, autoPost }),
-        tested: true,
-      });
-      return;
-    }
-
-    const next = {
-      ...current,
-      pageId,
-      pageAccessToken,
-      autoPost,
-      pageName,
-    };
-    await writeSettings(next);
-    json(res, 200, publicStatus(next));
+    json(res, 200, publicStatus(settings));
   } catch (err) {
-    json(res, 502, { error: err instanceof Error ? err.message : 'Could not update Facebook settings.' });
+    json(res, 502, { error: err instanceof Error ? err.message : 'Could not read Facebook settings.' });
   }
 }

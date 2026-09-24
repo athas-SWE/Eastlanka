@@ -4,7 +4,6 @@ import { About } from './pages/about/about';
 import { AdminCategories } from './pages/admin/admin-categories';
 import { AdminCategoryForm } from './pages/admin/admin-category-form';
 import { AdminDashboard } from './pages/admin/admin-dashboard';
-import { AdminFacebook } from './pages/admin/admin-facebook';
 import { AdminLogin } from './pages/admin/admin-login';
 import { AdminProductForm } from './pages/admin/admin-product-form';
 import { AdminProducts } from './pages/admin/admin-products';
@@ -43,7 +42,6 @@ export const routes: Routes = [
       { path: 'categories/new', component: AdminCategoryForm, title: 'Add category | East Lanka' },
       { path: 'categories/:slug', component: AdminCategoryForm, title: 'Edit category | East Lanka' },
       { path: 'media', component: Media, title: 'Upload images | East Lanka' },
-      { path: 'facebook', component: AdminFacebook, title: 'Facebook Page | East Lanka' },
     ],
   },
   { path: '**', redirectTo: '' },
