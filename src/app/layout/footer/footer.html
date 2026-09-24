@@ -45,13 +45,22 @@
       <h2 class="text-xs font-semibold tracking-[0.16em] text-gold uppercase">Talk to us</h2>
       <ul class="mt-4 space-y-2.5 text-sm text-white/75">
         <li>
-          <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="hover:text-white">WhatsApp</a>
+          <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-white">
+            <app-icon name="whatsapp" class="h-4 w-4" />
+            WhatsApp
+          </a>
         </li>
         <li>
-          <a [href]="site.facebookUrl" target="_blank" rel="noopener noreferrer" class="hover:text-white">Facebook</a>
+          <a [href]="site.facebookUrl" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-white">
+            <app-icon name="facebook" class="h-4 w-4" />
+            Facebook
+          </a>
         </li>
         <li>
-          <a [href]="site.instagramUrl" target="_blank" rel="noopener noreferrer" class="hover:text-white">Instagram</a>
+          <a [href]="site.instagramUrl" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-white">
+            <app-icon name="instagram" class="h-4 w-4" />
+            Instagram
+          </a>
         </li>
         <li>{{ site.location }}</li>
       </ul>

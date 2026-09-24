@@ -6,10 +6,11 @@ import { ProductService } from '../../core/services/product.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { discountPercent, formatLkr } from '../../core/utils/money';
 import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
+import { Icon } from '../../shared/icon/icon';
 
 @Component({
   selector: 'app-product-details',
-  imports: [RouterLink, CloudinaryUrlPipe],
+  imports: [RouterLink, CloudinaryUrlPipe, Icon],
   templateUrl: './product-details.html',
 })
 export class ProductDetails {

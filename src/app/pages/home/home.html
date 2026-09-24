@@ -14,7 +14,10 @@
       <p class="mt-5 max-w-md text-lg leading-8 text-white/72">{{ site.heroSubtitle }}</p>
       <div class="mt-8 flex flex-wrap gap-3">
         <a routerLink="/products" class="btn-gold">Shop Now</a>
-        <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-outline">WhatsApp Us</a>
+        <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-outline">
+          <app-icon name="whatsapp" class="h-4 w-4" />
+          WhatsApp Us
+        </a>
       </div>
       <ul class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/70">
         @for (item of highlights; track item) {
@@ -196,6 +199,9 @@
       <h2 class="mt-2 text-2xl text-white sm:text-3xl">Chat with us on WhatsApp</h2>
       <p class="mt-2 text-white/65">We confirm price, stock and delivery in the same conversation.</p>
     </div>
-    <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full shrink-0 sm:w-auto">WhatsApp Us</a>
+    <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full shrink-0 sm:w-auto">
+      <app-icon name="whatsapp" class="h-4 w-4" />
+      WhatsApp Us
+    </a>
   </div>
 </section>

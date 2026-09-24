@@ -1,6 +1,6 @@
 <header class="sticky top-0 z-40 border-b border-navy/8 bg-white/90 backdrop-blur-md">
   <div class="bg-navy px-4 py-2 text-center text-xs font-semibold text-white sm:text-sm">
-    <span class="text-gold">🚚</span>
+    <app-icon name="truck" class="h-4 w-4 text-gold" />
     {{ site.freeDelivery.headline }}
     <a routerLink="/products" class="ml-1 hidden text-gold underline-offset-2 hover:underline sm:inline" (click)="closeMenu()">Shop now</a>
   </div>
@@ -34,6 +34,7 @@
 
     <div class="flex items-center gap-2">
       <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-primary hidden sm:inline-flex">
+        <app-icon name="whatsapp" class="h-4 w-4" />
         WhatsApp Us
       </a>
       <button
@@ -75,6 +76,7 @@
           </a>
         }
         <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-primary mt-4 w-full" (click)="closeMenu()">
+          <app-icon name="whatsapp" class="h-4 w-4" />
           WhatsApp Us
         </a>
       </div>

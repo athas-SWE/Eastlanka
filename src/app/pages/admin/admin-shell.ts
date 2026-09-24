@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AdminAuthService } from '../../core/services/admin-auth.service';
+import { Icon } from '../../shared/icon/icon';
 
 @Component({
   selector: 'app-admin-shell',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, Icon],
   templateUrl: './admin-shell.html',
 })
 export class AdminShell {
@@ -12,10 +13,10 @@ export class AdminShell {
   private readonly router = inject(Router);
 
   readonly links = [
-    { path: '/admin', label: 'Dashboard', exact: true },
-    { path: '/admin/products', label: 'Products', exact: false },
-    { path: '/admin/categories', label: 'Categories', exact: false },
-    { path: '/admin/media', label: 'Images', exact: false },
+    { path: '/admin', label: 'Dashboard', exact: true, icon: 'grid' as const },
+    { path: '/admin/products', label: 'Products', exact: false, icon: 'box' as const },
+    { path: '/admin/categories', label: 'Categories', exact: false, icon: 'tag' as const },
+    { path: '/admin/media', label: 'Images', exact: false, icon: 'image' as const },
   ];
 
   signOut(): void {

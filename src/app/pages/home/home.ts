@@ -6,13 +6,14 @@ import { ProductService } from '../../core/services/product.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { discountPercent, formatLkr } from '../../core/utils/money';
 import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
+import { Icon } from '../../shared/icon/icon';
 import { ProductGrid } from '../../shared/product-grid/product-grid';
 
 const SPOTLIGHT_INTERVAL = 4500;
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, ProductGrid, CloudinaryUrlPipe],
+  imports: [RouterLink, ProductGrid, CloudinaryUrlPipe, Icon],
   templateUrl: './home.html',
 })
 export class Home {

@@ -40,7 +40,10 @@
         <p class="mt-6 max-w-xl text-[15px] leading-7 text-muted">{{ item.description }}</p>
         <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           @if (item.available && orderLink) {
-            <a [href]="orderLink" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full sm:w-auto">Order on WhatsApp</a>
+            <a [href]="orderLink" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full sm:w-auto">
+              <app-icon name="whatsapp" class="h-4 w-4" />
+              Order on WhatsApp
+            </a>
           } @else {
             <button type="button" class="btn-quiet w-full text-muted sm:w-auto" disabled>Currently unavailable</button>
           }

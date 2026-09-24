@@ -2,10 +2,11 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FacebookService, FacebookStatus } from '../../core/services/facebook.service';
 import { ProductService } from '../../core/services/product.service';
+import { Icon } from '../../shared/icon/icon';
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [RouterLink],
+  imports: [RouterLink, Icon],
   templateUrl: './admin-dashboard.html',
 })
 export class AdminDashboard {
