@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SITE_CONFIG } from '../../core/data/site-config';
 import { AdminAuthService } from '../../core/services/admin-auth.service';
+import { CartService } from '../../core/services/cart.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
 import { Icon } from '../../shared/icon/icon';
@@ -14,6 +15,7 @@ import { Icon } from '../../shared/icon/icon';
 export class Header {
   readonly site = SITE_CONFIG;
   readonly whatsappUrl = inject(WhatsAppService).generalUrl();
+  readonly cartCount = inject(CartService).count;
   readonly loggedIn = inject(AdminAuthService).loggedIn;
   readonly menuOpen = signal(false);
 

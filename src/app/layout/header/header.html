@@ -33,6 +33,13 @@
     </nav>
 
     <div class="flex items-center gap-2">
+      <a routerLink="/order" class="btn-quiet !min-h-10 !px-3" (click)="closeMenu()">
+        <app-icon name="bag" class="h-4 w-4" />
+        <span class="hidden sm:inline">Order</span>
+        @if (cartCount() > 0) {
+          <span class="rounded-full bg-forest px-1.5 text-xs text-white">{{ cartCount() }}</span>
+        }
+      </a>
       <a [href]="whatsappUrl" target="_blank" rel="noopener noreferrer" class="btn-primary hidden sm:inline-flex">
         <app-icon name="whatsapp" class="h-4 w-4" />
         WhatsApp Us

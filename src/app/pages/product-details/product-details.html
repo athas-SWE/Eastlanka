@@ -32,24 +32,31 @@
             </span>
           }
         </div>
-        <p class="mt-5">
+        <p class="mt-5 text-sm text-navy">
           @if (item.available) {
-            <span class="rounded-full bg-forest/10 px-3 py-1 text-sm font-medium text-forest">In stock</span>
+            <span class="rounded-full bg-forest/10 px-3 py-1 font-medium text-forest">In stock</span>
+            <span class="ml-2 text-muted">Ready to add to your order.</span>
           } @else {
-            <span class="rounded-full bg-navy/8 px-3 py-1 text-sm font-medium text-navy">Out of stock</span>
+            <span class="rounded-full bg-navy/8 px-3 py-1 font-medium text-navy">Out of stock</span>
           }
         </p>
         <p class="mt-6 max-w-xl text-[15px] leading-7 text-muted">{{ item.description }}</p>
         <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          @if (item.available && orderLink) {
-            <a [href]="orderLink" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full sm:w-auto">
-              <app-icon name="whatsapp" class="h-4 w-4" />
-              Order on WhatsApp
-            </a>
+          @if (item.available) {
+            <button type="button" class="btn-primary w-full sm:w-auto" (click)="add()">
+              <app-icon name="bag" class="h-4 w-4" />
+              {{ inOrder() ? 'Added (' + inOrder() + ')' : 'Add to order' }}
+            </button>
+            <a routerLink="/order" class="btn-quiet w-full sm:w-auto">View order</a>
           } @else {
             <button type="button" class="btn-quiet w-full text-muted sm:w-auto" disabled>Currently unavailable</button>
           }
-          <a routerLink="/products" class="btn-quiet w-full sm:w-auto">Back to products</a>
+          @if (item.available && orderLink) {
+            <a [href]="orderLink" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full sm:w-auto">
+              <app-icon name="whatsapp" class="h-4 w-4" />
+              Order this item
+            </a>
+          }
         </div>
         <div class="mt-6 flex max-w-xl items-start gap-3 rounded-2xl border border-gold/40 bg-gold/10 px-4 py-3">
           <app-icon name="truck" class="mt-0.5 h-5 w-5 text-navy" />
@@ -59,6 +66,23 @@
           </div>
         </div>
       </div>
+    </div>
+
+    @if (related().length) {
+      <h2 class="mt-14 font-display text-2xl text-navy">More in this category</h2>
+      <div class="mt-6">
+        <app-product-grid [products]="related()" />
+      </div>
+    }
+
+    <h2 class="mt-14 font-display text-2xl text-navy">Ordering and delivery</h2>
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      @for (entry of faq; track entry.question) {
+        <article class="soft-card p-5">
+          <h3 class="text-navy">{{ entry.question }}</h3>
+          <p class="mt-2 text-sm leading-6 text-muted">{{ entry.answer }}</p>
+        </article>
+      }
     </div>
   } @else {
     <div class="rounded-3xl border border-dashed border-navy/15 bg-white px-6 py-20 text-center">

@@ -31,8 +31,13 @@
         <p class="text-sm text-muted line-through">{{ formatLkr(item.originalPrice!) }}</p>
       }
     </div>
-    <a [routerLink]="['/products', item.code]" class="mt-auto pt-3 text-sm font-semibold text-forest hover:text-navy sm:pt-4">
-      View details
-    </a>
+    <div class="mt-auto flex items-center justify-between gap-3 pt-3 sm:pt-4">
+      <a [routerLink]="['/products', item.code]" class="text-sm font-semibold text-forest hover:text-navy">View details</a>
+      @if (item.available) {
+        <button type="button" class="btn-quiet !min-h-0 !px-3 !py-1.5 text-xs" (click)="add($event)">
+          {{ inOrder() ? 'Added ' + inOrder() : 'Add' }}
+        </button>
+      }
+    </div>
   </div>
 </article>

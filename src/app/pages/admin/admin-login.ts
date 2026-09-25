@@ -15,6 +15,7 @@ export class AdminLogin {
 
   readonly password = signal('');
   readonly error = signal('');
+  readonly busy = signal(false);
 
   constructor() {
     this.seo.apply({
@@ -33,10 +34,14 @@ export class AdminLogin {
     this.error.set('');
   }
 
-  submit(event: Event): void {
+  async submit(event: Event): Promise<void> {
     event.preventDefault();
-    if (!this.auth.login(this.password())) {
-      this.error.set('That password is not correct.');
+    this.busy.set(true);
+    this.error.set('');
+    const message = await this.auth.login(this.password());
+    this.busy.set(false);
+    if (message) {
+      this.error.set(message);
       return;
     }
     void this.router.navigateByUrl(this.returnUrl());

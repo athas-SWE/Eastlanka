@@ -15,7 +15,6 @@ export const SITE_CONFIG = {
     detail: 'Order any 3 products together and delivery is on us.',
   },
   logoImage: 'offer-lanka/brand-logo',
-  adminPassword: 'eastlanka',
   cloudinary: {
     cloudName: 'derggujli',
     folder: 'offer-lanka',

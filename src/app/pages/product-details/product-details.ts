@@ -1,6 +1,8 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DELIVERY_FAQ } from '../../core/data/faq';
 import { SITE_CONFIG } from '../../core/data/site-config';
+import { CartService } from '../../core/services/cart.service';
 import { CloudinaryService } from '../../core/services/cloudinary.service';
 import { ProductService } from '../../core/services/product.service';
 import { SeoService, absoluteUrl, breadcrumbJsonLd } from '../../core/services/seo.service';
@@ -8,10 +10,11 @@ import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { discountPercent, formatLkr } from '../../core/utils/money';
 import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
 import { Icon } from '../../shared/icon/icon';
+import { ProductGrid } from '../../shared/product-grid/product-grid';
 
 @Component({
   selector: 'app-product-details',
-  imports: [RouterLink, CloudinaryUrlPipe, Icon],
+  imports: [RouterLink, CloudinaryUrlPipe, Icon, ProductGrid],
   templateUrl: './product-details.html',
 })
 export class ProductDetails {
@@ -19,6 +22,7 @@ export class ProductDetails {
   private readonly whatsapp = inject(WhatsAppService);
   private readonly seo = inject(SeoService);
   private readonly cloudinary = inject(CloudinaryService);
+  private readonly cart = inject(CartService);
 
   readonly code = input.required<string>();
   readonly product = computed(() => this.productService.byCode(this.code()));
@@ -28,6 +32,18 @@ export class ProductDetails {
   });
 
   readonly site = SITE_CONFIG;
+  readonly faq = DELIVERY_FAQ;
+  readonly related = computed(() => {
+    const product = this.product();
+    if (!product) {
+      return [];
+    }
+    return this.productService.byCategory(product.category).filter((item) => item.code !== product.code).slice(0, 4);
+  });
+  readonly inOrder = computed(() => {
+    const product = this.product();
+    return product ? this.cart.qty(product.code) : 0;
+  });
 
   protected formatLkr = formatLkr;
   protected discountPercent = discountPercent;
@@ -79,6 +95,13 @@ export class ProductDetails {
         },
       });
     });
+  }
+
+  add(): void {
+    const product = this.product();
+    if (product) {
+      this.cart.add(product);
+    }
   }
 
   orderUrl(): string | null {

@@ -1,5 +1,4 @@
 import { Injectable, signal } from '@angular/core';
-import { SITE_CONFIG } from '../data/site-config';
 
 const SESSION_KEY = 'eastlanka-admin';
 const CREDENTIAL_KEY = 'eastlanka-admin-credential';
@@ -12,15 +11,34 @@ export class AdminAuthService {
     return this.loggedIn();
   }
 
-  login(password: string): boolean {
-    if (password !== SITE_CONFIG.adminPassword) {
-      return false;
+  async login(password: string): Promise<string | null> {
+    let response: Response;
+    try {
+      response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+    } catch {
+      return 'Sign-in is unavailable. Start the site with npm start.';
+    }
+
+    const text = await response.text();
+    let data: { error?: string; ok?: boolean } = {};
+    try {
+      data = text ? (JSON.parse(text) as { error?: string; ok?: boolean }) : {};
+    } catch {
+      return 'Sign-in is unavailable. Start the site with npm start.';
+    }
+
+    if (!response.ok || !data.ok) {
+      return data.error || 'That password is not correct.';
     }
 
     writeSession(true);
     writeCredential(password);
     this.loggedIn.set(true);
-    return true;
+    return null;
   }
 
   credential(): string {

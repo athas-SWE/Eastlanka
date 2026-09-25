@@ -2,6 +2,7 @@ import { createServer } from 'node:http';
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import login from '../api/admin/login.mjs';
 import publish from '../api/facebook/publish.mjs';
 import settings from '../api/facebook/settings.mjs';
 
@@ -42,6 +43,7 @@ loadEnv();
 
 const port = Number(process.env.API_PORT || 3001);
 const routes = new Map([
+  ['/api/admin/login', login],
   ['/api/facebook/settings', settings],
   ['/api/facebook/publish', publish],
 ]);

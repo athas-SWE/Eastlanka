@@ -15,6 +15,7 @@ import { Home } from './pages/home/home';
 import { Media } from './pages/media/media';
 import { NewArrivals } from './pages/new-arrivals/new-arrivals';
 import { Offers } from './pages/offers/offers';
+import { Order } from './pages/order/order';
 import { ProductDetails } from './pages/product-details/product-details';
 import { Products } from './pages/products/products';
 
@@ -26,6 +27,7 @@ export const routes: Routes = [
   { path: 'categories/:slug', component: CategoryProducts },
   { path: 'new-arrivals', component: NewArrivals, title: 'New Arrivals | East Lanka' },
   { path: 'offers', component: Offers, title: 'Offers | East Lanka' },
+  { path: 'order', component: Order, title: 'Your order | East Lanka' },
   { path: 'about', component: About, title: 'About East Lanka' },
   { path: 'contact', component: Contact, title: 'Contact | East Lanka' },
   { path: 'admin/login', component: AdminLogin, title: 'Admin sign in | East Lanka' },

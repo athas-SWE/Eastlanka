@@ -51,13 +51,28 @@ import { Component, input } from '@angular/core';
           <path d="M10 7V5a2 2 0 0 1 2-2h7v18h-7a2 2 0 0 1-2-2v-2" />
           <path d="M4 12h10M11 9l3 3-3 3" />
         }
+        @case ('bag') {
+          <path d="M6 8h12l-1 12H7L6 8z" />
+          <path d="M9 8V7a3 3 0 0 1 6 0v1" />
+        }
       }
     </svg>
   `,
 })
 export class Icon {
   readonly name = input.required<
-    'whatsapp' | 'facebook' | 'instagram' | 'truck' | 'plus' | 'grid' | 'image' | 'box' | 'tag' | 'percent' | 'logout'
+    | 'whatsapp'
+    | 'facebook'
+    | 'instagram'
+    | 'truck'
+    | 'plus'
+    | 'grid'
+    | 'image'
+    | 'box'
+    | 'tag'
+    | 'percent'
+    | 'logout'
+    | 'bag'
   >();
 
   protected brand(): boolean {
