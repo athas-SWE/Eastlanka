@@ -1,0 +1,13 @@
+@if (count() > 0 && !hidden()) {
+  <a
+    routerLink="/order"
+    class="fixed z-40 hidden items-center justify-between gap-3 rounded-full bg-navy px-4 py-3 text-white shadow-lg shadow-navy/20 lg:flex"
+    style="left: max(1rem, env(safe-area-inset-left)); right: max(5.5rem, calc(env(safe-area-inset-right) + 4.5rem)); bottom: max(1rem, env(safe-area-inset-bottom))"
+  >
+    <span class="flex min-w-0 items-center gap-2">
+      <app-icon name="bag" class="h-4 w-4 text-gold" />
+      <span class="truncate text-sm font-semibold">{{ count() }} in your order · {{ formatLkr(total()) }}</span>
+    </span>
+    <span class="shrink-0 text-sm font-semibold text-gold">Review</span>
+  </a>
+}

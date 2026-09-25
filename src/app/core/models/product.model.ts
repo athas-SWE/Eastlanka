@@ -24,5 +24,6 @@ export interface Product {
   description: string;
   available: boolean;
   newArrival?: boolean;
+  popular?: boolean;
   facebookPostId?: string;
 }

@@ -1,10 +1,11 @@
-import { Component, computed, effect, inject, input } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DELIVERY_FAQ } from '../../core/data/faq';
 import { SITE_CONFIG } from '../../core/data/site-config';
 import { CartService } from '../../core/services/cart.service';
 import { CloudinaryService } from '../../core/services/cloudinary.service';
 import { ProductService } from '../../core/services/product.service';
+import { RecentService } from '../../core/services/recent.service';
 import { SeoService, absoluteUrl, breadcrumbJsonLd } from '../../core/services/seo.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
 import { discountPercent, formatLkr } from '../../core/utils/money';
@@ -23,6 +24,7 @@ export class ProductDetails {
   private readonly seo = inject(SeoService);
   private readonly cloudinary = inject(CloudinaryService);
   private readonly cart = inject(CartService);
+  private readonly recent = inject(RecentService);
 
   readonly code = input.required<string>();
   readonly product = computed(() => this.productService.byCode(this.code()));
@@ -40,6 +42,8 @@ export class ProductDetails {
     }
     return this.productService.byCategory(product.category).filter((item) => item.code !== product.code).slice(0, 4);
   });
+  readonly viewed = computed(() => this.recent.products().filter((item) => item.code !== this.product()?.code).slice(0, 4));
+  readonly copied = signal(false);
   readonly inOrder = computed(() => {
     const product = this.product();
     return product ? this.cart.qty(product.code) : 0;
@@ -52,6 +56,9 @@ export class ProductDetails {
     effect(() => {
       const product = this.product();
       const category = this.category();
+      if (product) {
+        this.recent.view(product.code);
+      }
       if (!product) {
         this.seo.apply({
           title: 'Product | East Lanka',
@@ -106,6 +113,25 @@ export class ProductDetails {
 
   orderUrl(): string | null {
     const product = this.product();
-    return product ? this.whatsapp.productOrderUrl(product) : null;
+    return product?.available ? this.whatsapp.buyNowUrl(product) : null;
+  }
+
+  async share(): Promise<void> {
+    const product = this.product();
+    if (!product) {
+      return;
+    }
+    const url = `${location.origin}/products/${product.code}`;
+    const payload = { title: product.name, text: `${product.name} — ${formatLkr(product.price)}`, url };
+    if (navigator.share) {
+      try {
+        await navigator.share(payload);
+      } catch {
+        // The shopper closed the share sheet.
+      }
+      return;
+    }
+    await navigator.clipboard.writeText(url);
+    this.copied.set(true);
   }
 }

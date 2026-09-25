@@ -23,24 +23,48 @@ export class WhatsAppService {
     return this.buildUrl(message);
   }
 
-  orderUrl(items: { product: Product; qty: number }[], freeDelivery: boolean): string {
+  orderUrl(
+    items: { product: Product; qty: number }[],
+    freeDelivery: boolean,
+    details: { name: string; phone: string; address: string; city: string; note: string },
+  ): string {
     const lines = items.map(
-      (item, index) =>
-        `${index + 1}. ${item.product.name} (${item.product.code}) × ${item.qty} — ${formatLkr(item.product.price)}`,
+      (item) => `${item.qty} × ${item.product.name} — ${item.product.code} — ${formatLkr(item.product.price * item.qty)}`,
     );
     const total = items.reduce((sum, item) => sum + item.product.price * item.qty, 0);
     const message = [
       `Hi ${SITE_CONFIG.name},`,
       '',
-      "I'd like to order:",
+      'I would like to order:',
       '',
       ...lines,
       '',
-      `Items: ${items.reduce((sum, item) => sum + item.qty, 0)}`,
       `Total: ${formatLkr(total)}`,
-      freeDelivery ? 'Free delivery: yes, this order has 3 or more products.' : 'Please confirm the delivery charge.',
+      `Name: ${details.name.trim()}`,
+      `Phone: ${details.phone.trim()}`,
+      `Address: ${details.address.trim()}`,
+      `Delivery city: ${details.city.trim()}`,
+      details.note.trim() ? `Note: ${details.note.trim()}` : '',
+      freeDelivery ? 'Free delivery: this order has 3 or more products.' : '',
       '',
-      'Please confirm stock and delivery.',
+      'Please confirm availability and delivery.',
+    ]
+      .filter((line) => line !== '')
+      .join('\n');
+    return this.buildUrl(message);
+  }
+
+  buyNowUrl(product: Product): string {
+    const message = [
+      `Hi ${SITE_CONFIG.name},`,
+      '',
+      'I would like to order:',
+      '',
+      `1 × ${product.name} — ${product.code} — ${formatLkr(product.price)}`,
+      '',
+      `Total: ${formatLkr(product.price)}`,
+      '',
+      'Please confirm availability and delivery.',
     ].join('\n');
     return this.buildUrl(message);
   }

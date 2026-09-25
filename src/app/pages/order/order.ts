@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SITE_CONFIG } from '../../core/data/site-config';
 import { CartService } from '../../core/services/cart.service';
@@ -24,6 +24,11 @@ export class Order {
   readonly total = this.cart.total;
   readonly freeDelivery = this.cart.freeDelivery;
   readonly remaining = this.cart.remainingForFreeDelivery;
+  readonly name = signal('');
+  readonly phone = signal('');
+  readonly address = signal('');
+  readonly city = signal('');
+  readonly note = signal('');
   protected formatLkr = formatLkr;
 
   constructor() {
@@ -43,7 +48,25 @@ export class Order {
     this.cart.remove(code);
   }
 
+  phoneOk(): boolean {
+    return /^0\d{9}$/.test(this.phone().replace(/[\s-]/g, ''));
+  }
+
+  ready(): boolean {
+    return /[A-Za-z]/.test(this.name().trim()) && this.phoneOk() && this.address().trim().length > 0 && this.city().trim().length > 0;
+  }
+
+  clear(): void {
+    this.cart.clear();
+  }
+
   whatsappUrl(): string {
-    return this.whatsapp.orderUrl(this.entries(), this.freeDelivery());
+    return this.whatsapp.orderUrl(this.entries(), this.freeDelivery(), {
+      name: this.name(),
+      phone: this.phone(),
+      address: this.address(),
+      city: this.city(),
+      note: this.note(),
+    });
   }
 }

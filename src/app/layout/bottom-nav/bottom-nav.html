@@ -1,0 +1,38 @@
+@if (!hidden()) {
+  <nav class="fixed inset-x-0 bottom-0 z-40 border-t border-navy/10 bg-white lg:hidden" style="padding-bottom: env(safe-area-inset-bottom)">
+    @if (count() > 0 && !onOrder()) {
+      <a routerLink="/order" class="flex items-center justify-center gap-2 bg-navy px-4 py-2 text-center text-xs font-semibold text-white">
+        <app-icon name="truck" class="h-4 w-4 text-gold" />
+        @if (freeDelivery()) {
+          <span>Free delivery is included</span>
+        } @else {
+          <span>{{ count() }} added — add {{ remaining() }} more for free delivery</span>
+        }
+      </a>
+    }
+    <div class="grid grid-cols-4">
+      <a routerLink="/" routerLinkActive="text-forest" [routerLinkActiveOptions]="{ exact: true }" class="flex flex-col items-center gap-1 py-2 text-[11px] font-semibold text-muted">
+        <app-icon name="home" class="h-5 w-5" />
+        Home
+      </a>
+      <a routerLink="/categories" routerLinkActive="text-forest" class="flex flex-col items-center gap-1 py-2 text-[11px] font-semibold text-muted">
+        <app-icon name="grid" class="h-5 w-5" />
+        Categories
+      </a>
+      <a routerLink="/saved" routerLinkActive="text-forest" class="relative flex flex-col items-center gap-1 py-2 text-[11px] font-semibold text-muted">
+        <app-icon name="heart" class="h-5 w-5" />
+        Saved
+        @if (saved() > 0) {
+          <span class="absolute top-1 right-[calc(50%-1.4rem)] flex h-4 min-w-4 items-center justify-center rounded-full bg-forest px-1 text-[10px] text-white">{{ saved() }}</span>
+        }
+      </a>
+      <a routerLink="/order" routerLinkActive="text-forest" class="relative flex flex-col items-center gap-1 py-2 text-[11px] font-semibold text-muted">
+        <app-icon name="bag" class="h-5 w-5" />
+        Cart
+        @if (count() > 0) {
+          <span class="absolute top-1 right-[calc(50%-1.4rem)] flex h-4 min-w-4 items-center justify-center rounded-full bg-forest px-1 text-[10px] text-white">{{ count() }}</span>
+        }
+      </a>
+    </div>
+  </nav>
+}

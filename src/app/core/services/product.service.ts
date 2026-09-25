@@ -36,6 +36,11 @@ export class ProductService {
     return this.products().filter((product) => product.newArrival);
   }
 
+  popular(): Product[] {
+    const marked = this.products().filter((product) => product.popular && product.available);
+    return marked.length ? marked : this.products().filter((product) => product.available).slice(0, 4);
+  }
+
   offers(): Product[] {
     return this.products().filter(
       (product) => product.originalPrice !== undefined && product.originalPrice > product.price,

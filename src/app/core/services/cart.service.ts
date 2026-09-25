@@ -58,6 +58,11 @@ export class CartService {
   remove(code: string): void {
     this.setQty(code, 0);
   }
+
+  clear(): void {
+    this.lines.set([]);
+    writeCart([]);
+  }
 }
 
 function readCart(): CartLine[] {

@@ -13,6 +13,7 @@ export const PRODUCTS: Product[] = [
       'Wireless Bluetooth headphones with cushioned ear cups, a clear everyday sound profile, and enough battery for long commutes or work sessions.',
     available: true,
     newArrival: true,
+    popular: true,
   },
   {
     id: 2,
@@ -20,6 +21,7 @@ export const PRODUCTS: Product[] = [
     name: 'Smart Fitness Watch',
     category: 'electronics',
     price: 12500,
+    popular: true,
     image: 'offer-lanka/products/smartwatch',
     description:
       'A light fitness watch for steps, heart-rate tracking and message alerts, with a readable display for outdoor use.',
@@ -53,6 +55,7 @@ export const PRODUCTS: Product[] = [
     id: 5,
     code: 'EL-005',
     name: 'Everyday Cotton Tee',
+    popular: true,
     category: 'fashion',
     price: 1800,
     image: 'offer-lanka/products/tshirt',

@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { SITE_CONFIG } from '../../core/data/site-config';
 import { AdminAuthService } from '../../core/services/admin-auth.service';
 import { CartService } from '../../core/services/cart.service';
@@ -18,6 +18,7 @@ export class Header {
   readonly cartCount = inject(CartService).count;
   readonly loggedIn = inject(AdminAuthService).loggedIn;
   readonly menuOpen = signal(false);
+  private readonly router = inject(Router);
 
   readonly links = [
     { path: '/products', label: 'Products' },
@@ -34,5 +35,13 @@ export class Header {
 
   closeMenu(): void {
     this.menuOpen.set(false);
+  }
+
+  search(event: Event): void {
+    event.preventDefault();
+    const data = new FormData(event.target as HTMLFormElement);
+    const q = String(data.get('q') ?? '').trim();
+    this.closeMenu();
+    void this.router.navigate(['/products'], { queryParams: q ? { q } : {} });
   }
 }

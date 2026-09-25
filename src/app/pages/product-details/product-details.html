@@ -41,25 +41,30 @@
           }
         </p>
         <p class="mt-6 max-w-xl text-[15px] leading-7 text-muted">{{ item.description }}</p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <div class="mt-8 flex max-w-xl flex-col gap-3">
           @if (item.available) {
-            <button type="button" class="btn-primary w-full sm:w-auto" (click)="add()">
+            <button type="button" [class]="inOrder() ? 'btn-quiet w-full text-forest' : 'btn-primary w-full'" (click)="add()">
               <app-icon name="bag" class="h-4 w-4" />
-              {{ inOrder() ? 'Added (' + inOrder() + ')' : 'Add to order' }}
+              {{ inOrder() ? 'Added to your order' : 'Add to order' }}
             </button>
-            <a routerLink="/order" class="btn-quiet w-full sm:w-auto">View order</a>
+            @if (orderLink) {
+              <a [href]="orderLink" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full">
+                <app-icon name="whatsapp" class="h-4 w-4" />
+                Buy now on WhatsApp
+              </a>
+            }
+            <button type="button" class="btn-quiet w-full" (click)="share()">{{ copied() ? 'Link copied' : 'Share' }}</button>
           } @else {
-            <button type="button" class="btn-quiet w-full text-muted sm:w-auto" disabled>Currently unavailable</button>
-          }
-          @if (item.available && orderLink) {
-            <a [href]="orderLink" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full sm:w-auto">
-              <app-icon name="whatsapp" class="h-4 w-4" />
-              Order this item
-            </a>
+            <button type="button" class="btn-quiet w-full text-muted" disabled>Currently unavailable</button>
           }
         </div>
-        <div class="mt-6 flex max-w-xl items-start gap-3 rounded-2xl border border-gold/40 bg-gold/10 px-4 py-3">
-          <app-icon name="truck" class="mt-0.5 h-5 w-5 text-navy" />
+        <ul class="mt-4 max-w-xl space-y-1 text-sm text-muted">
+          <li>Order on WhatsApp</li>
+          <li>Delivery across Sri Lanka</li>
+          <li>We confirm stock in the chat</li>
+        </ul>
+        <div class="mt-6 flex max-w-xl items-center gap-3 rounded-2xl border border-gold/40 bg-gold/10 px-4 py-3">
+          <app-icon name="truck" class="h-5 w-5 shrink-0 text-navy" />
           <div>
             <p class="font-semibold text-navy">{{ site.freeDelivery.headline }}</p>
             <p class="mt-0.5 text-sm text-muted">{{ site.freeDelivery.detail }}</p>
@@ -72,6 +77,13 @@
       <h2 class="mt-14 font-display text-2xl text-navy">More in this category</h2>
       <div class="mt-6">
         <app-product-grid [products]="related()" />
+      </div>
+    }
+
+    @if (viewed().length) {
+      <h2 class="mt-14 font-display text-2xl text-navy">Recently viewed</h2>
+      <div class="mt-6">
+        <app-product-grid [products]="viewed()" />
       </div>
     }
 

@@ -1,0 +1,37 @@
+@if (sheet.product(); as item) {
+  @let onOffer = item.originalPrice && item.originalPrice > item.price;
+  <div class="fixed inset-0 z-50 flex items-end bg-navy/40 sm:items-center sm:justify-center" (click)="sheet.close()">
+    <div class="max-h-[88vh] w-full overflow-auto rounded-t-3xl bg-white p-4 shadow-xl sm:max-w-lg sm:rounded-3xl sm:p-6" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" [attr.aria-label]="item.name">
+      <div class="mx-auto mb-3 h-1 w-10 rounded-full bg-navy/15 sm:hidden"></div>
+      <img [src]="item.image | cloudinaryUrl:800" [alt]="item.name" class="aspect-square w-full rounded-2xl object-cover" />
+      <p class="mt-4 text-[11px] tracking-[0.14em] text-muted uppercase">{{ item.code }}</p>
+      <h2 class="mt-1 font-display text-2xl text-navy">{{ item.name }}</h2>
+      <div class="mt-2 flex flex-wrap items-baseline gap-2">
+        <p class="text-lg font-semibold text-navy">{{ formatLkr(item.price) }}</p>
+        @if (onOffer) {
+          <p class="text-sm text-muted line-through">{{ formatLkr(item.originalPrice!) }}</p>
+          <span class="rounded-full bg-gold px-2 py-0.5 text-[10px] font-semibold text-navy uppercase">{{ discountPercent(item.price, item.originalPrice!) }}% off</span>
+        }
+      </div>
+      <p class="mt-3 text-sm leading-6 text-muted">{{ item.description }}</p>
+      <p class="mt-3 text-sm font-medium" [class]="item.available ? 'text-forest' : 'text-muted'">{{ item.available ? 'In stock' : 'Out of stock' }}</p>
+      <div class="mt-5 flex flex-col gap-2">
+        @if (item.available) {
+          <button type="button" class="btn-primary w-full" (click)="add()">{{ inOrder() ? 'Added · ' + inOrder() : 'Add to order' }}</button>
+          <a [href]="buyUrl()" target="_blank" rel="noopener noreferrer" class="btn-whatsapp w-full">
+            <app-icon name="whatsapp" class="h-4 w-4" />
+            Buy now on WhatsApp
+          </a>
+        }
+        <div class="flex gap-2">
+          <button type="button" class="btn-quiet flex-1" (click)="toggleSaved()">
+            <app-icon name="heart" class="h-4 w-4" [filled]="saved()" />
+            {{ saved() ? 'Saved' : 'Save' }}
+          </button>
+          <button type="button" class="btn-quiet flex-1" (click)="share()">Share</button>
+        </div>
+        <a [routerLink]="['/products', item.code]" class="btn-quiet w-full" (click)="sheet.close()">Full details</a>
+      </div>
+    </div>
+  </div>
+}

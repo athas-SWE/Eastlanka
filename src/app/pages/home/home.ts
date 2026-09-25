@@ -1,16 +1,14 @@
 import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SITE_CONFIG } from '../../core/data/site-config';
-import { Product } from '../../core/models/product.model';
 import { ProductService } from '../../core/services/product.service';
+import { RecentService } from '../../core/services/recent.service';
 import { SeoService, logoUrl } from '../../core/services/seo.service';
 import { WhatsAppService } from '../../core/services/whatsapp.service';
-import { discountPercent, formatLkr } from '../../core/utils/money';
+import { formatLkr } from '../../core/utils/money';
 import { CloudinaryUrlPipe } from '../../shared/cloudinary-url.pipe';
 import { Icon } from '../../shared/icon/icon';
 import { ProductGrid } from '../../shared/product-grid/product-grid';
-
-const SPOTLIGHT_INTERVAL = 4500;
 
 @Component({
   selector: 'app-home',
@@ -19,53 +17,39 @@ const SPOTLIGHT_INTERVAL = 4500;
 })
 export class Home {
   private readonly catalogue = inject(ProductService);
-  private readonly whatsapp = inject(WhatsAppService);
-  private readonly seo = inject(SeoService);
+  private readonly router = inject(Router);
 
   readonly site = SITE_CONFIG;
+  readonly whatsappUrl = inject(WhatsAppService).generalUrl();
   readonly categories = this.catalogue.categories;
-  readonly arrivals = computed(() => this.catalogue.newArrivals().slice(0, 3));
-  readonly productCount = computed(() => this.catalogue.products().length);
-  readonly categoryCount = computed(() => this.catalogue.categories().length);
-  readonly whatsappUrl = this.whatsapp.generalUrl();
-
-  readonly spotlight = computed(() => {
-    const available = this.catalogue.products().filter((product) => product.available);
-    const featured = available.filter(
-      (product) => product.newArrival || (product.originalPrice ?? 0) > product.price,
-    );
-    return (featured.length ? featured : available).slice(0, 5);
+  readonly offers = computed(() => this.catalogue.offers().slice(0, 4));
+  readonly slides = computed(() => {
+    const seen = new Set<string>();
+    return [...this.catalogue.offers(), ...this.catalogue.newArrivals(), ...this.catalogue.popular()]
+      .filter((product) => {
+        if (!product.available || seen.has(product.code)) {
+          return false;
+        }
+        seen.add(product.code);
+        return true;
+      })
+      .slice(0, 5);
   });
-  readonly activeIndex = signal(0);
-  readonly active = computed<Product | undefined>(() => {
-    const list = this.spotlight();
-    return list.length ? list[this.activeIndex() % list.length] : undefined;
-  });
+  readonly index = signal(0);
   readonly paused = signal(false);
-
+  readonly active = computed(() => {
+    const list = this.slides();
+    return list.length ? list[this.index() % list.length] : undefined;
+  });
   protected formatLkr = formatLkr;
-  protected discountPercent = discountPercent;
-
-  readonly highlights = ['Prices shown upfront', 'Order in one message', 'Real replies on WhatsApp'];
-
-  readonly steps = [
-    { title: 'Pick a product', text: 'Browse the catalogue and open anything you like.' },
-    { title: 'Tap WhatsApp', text: 'The product name, code and price are filled in for you.' },
-    { title: 'We confirm', text: 'Stock and delivery are sorted in the same chat. Order 3 products and delivery is free.' },
-  ];
-
-  readonly reasons = [
-    { label: 'Shop', title: 'Quality Products', text: 'Chosen for daily use, not just for a feed.' },
-    { label: 'Discover', title: 'New Finds', text: 'The same pieces we highlight on Facebook and Instagram.' },
-    { label: 'Upgrade', title: 'Great Prices', text: 'Clear rupee prices before you message us.' },
-    { label: 'Live Better', title: 'Trusted Support', text: 'Questions go straight to WhatsApp — no ticket queue.' },
-  ];
+  readonly arrivals = computed(() => this.catalogue.newArrivals().slice(0, 4));
+  readonly popular = computed(() => this.catalogue.popular().slice(0, 4));
+  readonly recent = inject(RecentService).products;
 
   constructor() {
-    this.seo.apply({
+    inject(SeoService).apply({
       title: 'East Lanka | New Products • Better Tomorrow',
-      description:
-        'East Lanka is a Sri Lankan product catalogue. Browse electronics, fashion, home, accessories and gifts, then order on WhatsApp.',
+      description: 'Shop East Lanka. Search products, open a category, and order on WhatsApp.',
       path: '/',
       image: logoUrl(),
       jsonLd: {
@@ -78,39 +62,41 @@ export class Home {
         sameAs: [SITE_CONFIG.facebookUrl, SITE_CONFIG.instagramUrl],
       },
     });
-    const reduceMotion =
-      typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const reduceMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion) {
       return;
     }
-
     const timer = setInterval(() => {
       if (!this.paused()) {
         this.next();
       }
-    }, SPOTLIGHT_INTERVAL);
+    }, 4500);
     inject(DestroyRef).onDestroy(() => clearInterval(timer));
   }
 
-  orderUrl(product: Product): string {
-    return this.whatsapp.productOrderUrl(product);
-  }
-
   show(index: number): void {
-    this.activeIndex.set(index);
+    this.index.set(index);
   }
 
   next(): void {
-    const count = this.spotlight().length;
+    const count = this.slides().length;
     if (count) {
-      this.activeIndex.update((index) => (index + 1) % count);
+      this.index.update((index) => (index + 1) % count);
     }
   }
 
   previous(): void {
-    const count = this.spotlight().length;
+    const count = this.slides().length;
     if (count) {
-      this.activeIndex.update((index) => (index - 1 + count) % count);
+      this.index.update((index) => (index - 1 + count) % count);
     }
+  }
+
+  search(event: Event): void {
+    event.preventDefault();
+    const data = new FormData(event.target as HTMLFormElement);
+    const q = String(data.get('q') ?? '').trim();
+    void this.router.navigate(['/products'], { queryParams: q ? { q } : {} });
   }
 }

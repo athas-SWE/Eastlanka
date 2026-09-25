@@ -7,7 +7,7 @@ import { Component, input } from '@angular/core';
     'aria-hidden': 'true',
   },
   template: `
-    <svg [attr.viewBox]="brand() ? '0 0 24 24' : '0 0 24 24'" class="h-full w-full" [attr.fill]="brand() ? 'currentColor' : 'none'" [attr.stroke]="brand() ? 'none' : 'currentColor'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="0 0 24 24" class="h-full w-full" [attr.fill]="brand() || filled() ? 'currentColor' : 'none'" [attr.stroke]="brand() ? 'none' : 'currentColor'" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       @switch (name()) {
         @case ('whatsapp') {
           <path d="M20.5 3.5A11 11 0 0 0 2.1 16.7L1 23l6.5-1.1A11 11 0 0 0 20.5 3.5zm-8.5 17a9 9 0 0 1-4.6-1.3l-.3-.2-3.8.6.6-3.7-.2-.3A9 9 0 1 1 12 20.5zm5-6.7c-.3-.1-1.6-.8-1.9-.9s-.4-.1-.6.1-.7.9-.8 1-.3.2-.6.1a7.4 7.4 0 0 1-2.2-1.3 8.1 8.1 0 0 1-1.5-1.9c-.2-.3 0-.4.1-.6l.4-.5.1-.3a.5.5 0 0 0 0-.5c-.1-.1-.6-1.5-.8-2s-.4-.5-.6-.5h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-1 2.2 5.3 5.3 0 0 0 1.1 2.8 12 12 0 0 0 4.6 4.1 15 15 0 0 0 1.5.5 3.6 3.6 0 0 0 1.6.1 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3z" />
@@ -19,9 +19,10 @@ import { Component, input } from '@angular/core';
           <path d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5zm8 2H8a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3zm-4 3.2A3.8 3.8 0 1 1 8.2 12 3.8 3.8 0 0 1 12 8.2zm0 1.8a2 2 0 1 0 2 2 2 2 0 0 0-2-2zM17.4 6.2a1 1 0 1 1-1 1 1 1 0 0 1 1-1z" />
         }
         @case ('truck') {
-          <path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z" />
-          <circle cx="7" cy="17" r="1.6" />
-          <circle cx="17" cy="17" r="1.6" />
+          <path d="M2 6h12v8H2z" />
+          <path d="M14 9h4.2L22 13v1H14" />
+          <circle cx="6.5" cy="16.2" r="1.7" />
+          <circle cx="17.5" cy="16.2" r="1.7" />
         }
         @case ('plus') {
           <path d="M12 5v14M5 12h14" />
@@ -52,8 +53,20 @@ import { Component, input } from '@angular/core';
           <path d="M4 12h10M11 9l3 3-3 3" />
         }
         @case ('bag') {
-          <path d="M6 8h12l-1 12H7L6 8z" />
-          <path d="M9 8V7a3 3 0 0 1 6 0v1" />
+          <path d="M6 7 4 11v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8l-2-4Z" />
+          <path d="M4 11h16" />
+          <path d="M15 15a3 3 0 0 1-6 0" />
+        }
+        @case ('heart') {
+          <path d="M12 19s-6.5-4.2-6.5-8.2a3.4 3.4 0 0 1 6.5-1.4 3.4 3.4 0 0 1 6.5 1.4C18.5 14.8 12 19 12 19z" />
+        }
+        @case ('home') {
+          <path d="M4 11 12 4l8 7" />
+          <path d="M6 10.5V20h12v-9.5" />
+        }
+        @case ('search') {
+          <circle cx="11" cy="11" r="6" />
+          <path d="M16 16l4 4" />
         }
       }
     </svg>
@@ -73,7 +86,11 @@ export class Icon {
     | 'percent'
     | 'logout'
     | 'bag'
+    | 'heart'
+    | 'home'
+    | 'search'
   >();
+  readonly filled = input(false);
 
   protected brand(): boolean {
     const name = this.name();

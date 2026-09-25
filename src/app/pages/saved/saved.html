@@ -1,0 +1,17 @@
+<section class="section">
+  <p class="eyebrow">Saved</p>
+  <h1 class="section-title mt-2">Saved products</h1>
+  <p class="section-copy">Kept on this browser. No account needed.</p>
+  <div class="section-rule"></div>
+  @if (favorites.products().length === 0) {
+    <div class="mt-10 rounded-3xl border border-dashed border-navy/15 bg-white px-6 py-16 text-center">
+      <h2 class="text-2xl text-navy">Nothing saved yet</h2>
+      <p class="mx-auto mt-2 max-w-sm text-sm leading-6 text-muted">Tap the heart on a product to keep it here.</p>
+      <a routerLink="/products" class="btn-primary mt-6">Browse products</a>
+    </div>
+  } @else {
+    <div class="mt-8">
+      <app-product-grid [products]="favorites.products()" />
+    </div>
+  }
+</section>

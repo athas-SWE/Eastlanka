@@ -18,6 +18,7 @@ import { Offers } from './pages/offers/offers';
 import { Order } from './pages/order/order';
 import { ProductDetails } from './pages/product-details/product-details';
 import { Products } from './pages/products/products';
+import { Saved } from './pages/saved/saved';
 
 export const routes: Routes = [
   { path: '', component: Home, title: 'East Lanka | New Products • Better Tomorrow' },
@@ -28,6 +29,7 @@ export const routes: Routes = [
   { path: 'new-arrivals', component: NewArrivals, title: 'New Arrivals | East Lanka' },
   { path: 'offers', component: Offers, title: 'Offers | East Lanka' },
   { path: 'order', component: Order, title: 'Your order | East Lanka' },
+  { path: 'saved', component: Saved, title: 'Saved products | East Lanka' },
   { path: 'about', component: About, title: 'About East Lanka' },
   { path: 'contact', component: Contact, title: 'Contact | East Lanka' },
   { path: 'admin/login', component: AdminLogin, title: 'Admin sign in | East Lanka' },
